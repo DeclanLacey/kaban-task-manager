@@ -1,10 +1,18 @@
 import React from "react";
 import { useState } from "react";
 import MenuModal from "./menuModal";
+import Task from "./task";
+import TaskColumn from "./taskColumn";
 
 function App() {
 
-    const [menuOpen, setMenuOpen] = useState(true)
+    const [menuOpen, setMenuOpen] = useState(false)
+
+
+    ///// This will be temporary, eventually render the empty text based off of wehter or not any data exists
+    const [noData, setNoData] = useState(false)
+
+
 
     function changeMenuStatus() {
         setMenuOpen(prevState => !prevState)
@@ -35,10 +43,15 @@ function App() {
             </header>
 
             <main className="board-container">
-                <div className="empty-board-message-container">
-                        <h2 className="empty-board-message"> This board is empty. Create a new column to get started. </h2>
-                        <button className="empty-board-add-column-btn">+  Add New Column</button>
-                </div>
+                {
+                    noData ?
+                        <div className="empty-board-message-container">
+                            <h2 className="empty-board-message"> This board is empty. Create a new column to get started. </h2>
+                            <button className="empty-board-add-column-btn">+  Add New Column</button>
+                        </div>
+                    :
+                    <></>
+                }
                 <div className="menu-modal-container">
                             {
                                 menuOpen ?
@@ -46,6 +59,12 @@ function App() {
                                 :
                                 <></>
                             }
+                </div>
+
+                <div className="task-columns-container">
+                        <TaskColumn />
+                        <TaskColumn />
+                        <TaskColumn />
                 </div>
             </main>
 

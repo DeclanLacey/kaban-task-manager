@@ -312,3 +312,84 @@ img {
 .empty-board-add-column-btn:hover {
     cursor: pointer;
 }
+
+
+/* ///// Task stlying ////// */
+
+.task-columns-container {
+    padding-top: 94px;
+    padding-left: 15px;
+    padding-right: 15px;
+    display: flex;
+    gap: 25px;
+    background-color: #F4F7FD;
+    /* overflow-y: auto; */
+    overflow-x: auto;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.task-columns-container::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .task-columns-container {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+.task-container {
+    width: 280px;
+    height: 88px;
+    background-color: white;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px 0px rgba(54, 78, 126, 0.10);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+}
+
+.task-title {
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.task-subtask-title {
+    font-size: 12px;
+    color: #828FA3
+}
+
+.task-container:hover {
+    cursor: pointer;
+}
+
+.column-title-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.column-title {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 2.4px;
+    color: #828FA3;
+    text-transform: uppercase;
+}
+
+.column-title-circle {
+    width: 15px;
+    height: 14px;
+    background-color: #49C4E5;;
+    border-radius: 100px;
+    margin-right: 10px;
+}
+
