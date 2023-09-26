@@ -3,9 +3,14 @@ import { useState } from "react";
 import MenuModal from "./menuModal";
 import Task from "./task";
 import TaskColumn from "./taskColumn";
+import useScrollBlock from "./blockScroll"
+import ViewTaskModal from "./viewTaskModal";
+const projectContainer = document.getElementById("root")
+
 
 function App() {
 
+    const [blockScroll, allowScroll] = useScrollBlock()
     const [menuOpen, setMenuOpen] = useState(false)
 
 
@@ -17,6 +22,16 @@ function App() {
     function changeMenuStatus() {
         setMenuOpen(prevState => !prevState)
     }
+
+
+
+    ///// This may change
+    if (menuOpen) {
+        blockScroll()
+    }else if (menuOpen === false) {
+        allowScroll()
+    }
+
 
     return (
         <div className="app-container">
@@ -60,6 +75,9 @@ function App() {
                                 <></>
                             }
                 </div>
+                {/* <div className="current-modal-container">
+                     <ViewTaskModal/> 
+                </div> */}
 
                 <div className="task-columns-container">
                         <TaskColumn />
