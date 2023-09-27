@@ -5,10 +5,10 @@ function EditBoardModal() {
         <div className="edit-board-modal">
             <div className="modal-page-cover"> </div>
             <div className="modal-content">
-                <h1 className="modal-title"> Add New Board </h1>
+                <h1 className="modal-title"> Edit Board </h1>
                 <div className="modal-input-container">
                     <label className="modal-label"> Board Name </label>
-                    <input className="text-box-normal" type="text" placeholder="e.g. Web Design" />
+                    <input className="text-box-normal" type="text" value="Place Name Here" />
                 </div>
                 <div className="modal-input-container">
                     <h3 className="modal-label"> Board Columns </h3>
@@ -28,7 +28,7 @@ function EditBoardModal() {
 
                 </div>
 
-                <button className="modal-final-btn"> Create New Board</button>
+                <button className="modal-final-btn"> Save Changes </button>
             </div>
         </div>
     )

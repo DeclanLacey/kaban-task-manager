@@ -9,6 +9,8 @@ import AddTaskModal from "./addTaskModal";
 import EditTaskModal from "./editTaskModal";
 import AddBoardModal from "./addBoardModal";
 import EditBoardModal from "./editBoardModal";
+import DeleteBoardModal from "./deleteBoardModal";
+import DeleteTaskModal from "./deleteTaskModal";
 const projectContainer = document.getElementById("root")
 
 
@@ -84,7 +86,9 @@ function App() {
                     {/* <AddTaskModal /> */}
                     {/* <EditTaskModal /> */}
                     {/* <AddBoardModal /> */}
-                    <EditBoardModal />
+                    {/* <EditBoardModal /> */}
+                    {/* <DeleteBoardModal /> */}
+                    {/* <DeleteTaskModal /> */}
                 </div>
 
                 <div className="task-columns-container">

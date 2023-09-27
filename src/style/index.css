@@ -526,6 +526,47 @@ button {
     margin-top: 10px;
 }
 
+.delete-btn {
+    border-radius: 20px;
+    background: #EA5555;
+    height: 40px;
+    border: none;
+    color: white;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.cancel-btn {
+    border-radius: 20px;
+    background: rgba(99, 95, 199, 0.10);
+    height: 40px;
+    border: none;
+    color: #635FC7;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.delete-text {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 23px;
+    color: #828FA3;
+    margin-bottom: 20px;
+}
+
+.delete-title {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    color: #EA5555;
+    margin-bottom: 20px;
+}
+
 /* ////////////////////////////////////////////////////////// */
 /* /////////////// Edit Task Modal Styling ////////////////// */
 /* ///////////////////////////////////////////////////////// */
@@ -666,3 +707,31 @@ button {
 /* ////////////////////////////////////////////////////////// */
 /* /////////////// Add Board Modal Styling ////////////////// */
 /* ///////////////////////////////////////////////////////// */
+
+.edit-board-modal {
+    display: flex;
+    justify-content: center;
+}
+
+/* ////////////////////////////////////////////////////////// */
+/* /////////////// Delete Board Modal Styling ////////////////// */
+/* ///////////////////////////////////////////////////////// */
+
+.delete-board-modal {
+    display: flex;
+    justify-content: center;
+}
+
+.delete-modal-content {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ////////////////////////////////////////////////////////// */
+/* /////////////// Delete Task Modal Styling ////////////////// */
+/* ///////////////////////////////////////////////////////// */
+
+.delete-task-modal {
+    display: flex;
+    justify-content: center;
+}
