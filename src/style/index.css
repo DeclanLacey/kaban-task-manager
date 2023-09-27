@@ -17,6 +17,10 @@ img {
     height: 100vh + 10px;
 }
 
+button {
+    cursor: pointer;
+}
+
 /* /////////////////////////////////////////////////////////////////// */
 /* ////////////////////// Header styling ///////////////////////////// */
 /* /////////////////////////////////////////////////////////////////// */
@@ -385,6 +389,143 @@ img {
 }
 
 
+
+
+
+
+/* ///////////////////////////////////////////////////////////// */
+/* /////////////// Shared Modal Styling /////////////////////// */
+/* //////////////////////////////////////////////////////////// */
+
+
+.modal-page-cover {
+    background-color: black;
+    height: 100vh;
+    width: 100%;
+    z-index: 1000;
+    position: absolute;
+    opacity: .5;
+    
+}
+
+.modal-content {
+    width: 93%;
+    height: fit-content;
+    background-color: white;
+    position: absolute;
+    z-index: 1001;
+    border-radius: 8px;
+    padding: 20px;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+    max-width: 480px;
+}
+
+.select-menu {
+    height: 40px;
+    border: 1px solid rgba(130, 143, 163, 0.25);
+    padding-left: 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("src/assets/icon-chevron-down.svg");
+    background-repeat: no-repeat;
+    background-position:  96%;
+}
+
+.select-menu:hover {
+    cursor: pointer;
+}
+
+.text-box-normal {
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid rgba(130, 143, 163, 0.25);
+    padding: 12px;
+    margin-bottom: 24px;
+}
+
+.text-box-large {
+    height: 112px;
+    border-radius: 4px;
+    border: 1px solid rgba(130, 143, 163, 0.25);
+    padding: 12px;
+    margin-bottom: 24px;
+
+}
+
+.subtask-input {
+    height: 40px;
+    width: 88%;
+    border-radius: 4px;
+    border: 1px solid rgba(130, 143, 163, 0.25);
+    padding: 12px;
+
+}
+
+.modal-title {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    margin-bottom: 20px;
+}
+
+.modal-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.subtask-delete-btn-img {
+    width: 14.849px;
+    height: 14.849px;
+}
+
+.subtask-delete-btn-img:hover {
+    cursor: pointer;
+}
+
+.modal-label {
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    color:  #828FA3;
+}
+
+.input-with-x-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.modal-add-new-btn {
+    border-radius: 20px;
+    background: rgba(99, 95, 199, 0.10);
+    height: 40px;
+    border: none;
+    color: #635FC7;
+    font-size: 13px;
+    margin-bottom: 20px;
+    font-weight: 700;
+
+}
+
+.modal-final-btn {
+    border-radius: 20px;
+    background: #635FC7;
+    height: 40px;
+    color: white;
+    width: 100%;
+    border: none;
+    margin-top: 10px;
+}
+
 /* ////////////////////////////////////////////////////////// */
 /* /////////////// Edit Task Modal Styling ////////////////// */
 /* ///////////////////////////////////////////////////////// */
@@ -392,27 +533,6 @@ img {
 .view-task-modal {
     display: flex;
     justify-content: center;
-}
-
-.view-task-modal-page-cover {
-    background-color: black;
-    height: 100vh;
-    width: 100%;
-    z-index: 1000;
-    position: absolute;
-    opacity: .5;
-}
-
-.view-task-modal-content {
-    width: 93%;
-    height: fit-content;
-    background-color: white;
-    position: absolute;
-    z-index: 1001;
-    top: 80px;
-    border-radius: 8px;
-    padding: 20px;
-    
 }
 
 .view-task-three-dots-svg {
@@ -515,20 +635,34 @@ img {
 }
 
 .current-status-select {
-    height: 40px;
-    border: 1px solid rgba(130, 143, 163, 0.25);
     padding-left: 15px;
     border-radius: 5px;
     margin-bottom: 15px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background-image: url("src/assets/icon-chevron-down.svg");
-    background-repeat: no-repeat;
-    background-position:  96%;
 }
 
 .current-status-select:hover {
     cursor: pointer;
 }
 
+/* ////////////////////////////////////////////////////////// */
+/* /////////////// Add Task Modal Styling ////////////////// */
+/* ///////////////////////////////////////////////////////// */
+
+
+.add-task-modal {
+    display: flex;
+    justify-content: center;
+}
+
+/* ////////////////////////////////////////////////////////// */
+/* /////////////// Add Board Modal Styling ////////////////// */
+/* ///////////////////////////////////////////////////////// */
+
+.add-board-modal {
+    display: flex;
+    justify-content: center;
+}
+
+/* ////////////////////////////////////////////////////////// */
+/* /////////////// Add Board Modal Styling ////////////////// */
+/* ///////////////////////////////////////////////////////// */

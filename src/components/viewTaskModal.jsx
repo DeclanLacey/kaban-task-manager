@@ -3,8 +3,8 @@ import React from "react";
 function ViewTaskModal() {
     return (
         <div className="view-task-modal">
-            <div className="view-task-modal-page-cover"> </div>
-            <div className="view-task-modal-content">
+            <div className="modal-page-cover"> </div>
+            <div className="modal-content">
                 <div className="task-title-container">
                     <h1 className="view-task-title"> Research pricing points of various competitors and trial different business models </h1>
                     <img className="view-task-three-dots-svg" src="src\assets\icon-vertical-ellipsis.svg" />
@@ -27,7 +27,7 @@ function ViewTaskModal() {
                 </div>
                 <div className="current-status-container">
                     <label className="current-status-label"> Current Status </label> 
-                    <select className="current-status-select">
+                    <select className="current-status-select select-menu">
                         <option> Doing </option>
                     </select>
                 </div>

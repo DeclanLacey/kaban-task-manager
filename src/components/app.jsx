@@ -5,6 +5,10 @@ import Task from "./task";
 import TaskColumn from "./taskColumn";
 import useScrollBlock from "./blockScroll"
 import ViewTaskModal from "./viewTaskModal";
+import AddTaskModal from "./addTaskModal";
+import EditTaskModal from "./editTaskModal";
+import AddBoardModal from "./addBoardModal";
+import EditBoardModal from "./editBoardModal";
 const projectContainer = document.getElementById("root")
 
 
@@ -75,9 +79,13 @@ function App() {
                                 <></>
                             }
                 </div>
-                {/* <div className="current-modal-container">
-                     <ViewTaskModal/> 
-                </div> */}
+                <div className="current-modal-container">
+                    {/* <ViewTaskModal/>  */}
+                    {/* <AddTaskModal /> */}
+                    {/* <EditTaskModal /> */}
+                    {/* <AddBoardModal /> */}
+                    <EditBoardModal />
+                </div>
 
                 <div className="task-columns-container">
                         <TaskColumn />
