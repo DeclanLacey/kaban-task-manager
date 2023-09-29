@@ -4,8 +4,10 @@ function Task() {
 
     return (
         <div className="task-container">
-            <h1 className="task-title"> Build UI for onboarding flow </h1>
-            <p className="task-subtask-title"> 0 of 3 substasks </p>
+            <h1 className="task-title">  </h1>
+            {/* Build UI for onboarding flow */}
+            <p className="task-subtask-title">  </p>
+            {/* 0 of 3 substasks */}
         </div>
     )
 }

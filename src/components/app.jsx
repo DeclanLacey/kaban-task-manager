@@ -1,5 +1,6 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { TaskDataContext } from "./taskDataContext";
 import MenuModal from "./menuModal";
 import Task from "./task";
 import TaskColumn from "./taskColumn";
@@ -18,10 +19,11 @@ function App() {
 
     const [blockScroll, allowScroll] = useScrollBlock()
     const [menuOpen, setMenuOpen] = useState(false)
+    const [addBoardOpen, setAddBoardOpen] = useState(false)
 
-
-    ///// This will be temporary, eventually render the empty text based off of wehter or not any data exists
-    const [noData, setNoData] = useState(false)
+    const {data, board} = React.useContext(TaskDataContext)
+    const [taskData, setTaskData] = data
+    const [currentBoard, setCurrentBoard] = board
 
 
 
@@ -29,14 +31,13 @@ function App() {
         setMenuOpen(prevState => !prevState)
     }
 
-
-
-    ///// This may change
-    if (menuOpen) {
-        blockScroll()
-    }else if (menuOpen === false) {
-        allowScroll()
-    }
+    ////////////////// THE LAYOUT BREAKS WHEN THESE ARE CALLED
+    ///// This may change (call these functions when the button is clicked?)
+    // if (menuOpen) {
+    //     blockScroll()
+    // }else if (menuOpen === false) {
+    //     allowScroll()
+    // }
 
 
     return (
@@ -46,7 +47,7 @@ function App() {
                     <img className="mobile-svg-logo" src="src\assets\logo-mobile.svg" />
                     <div className="dropdown-menu" onClick={changeMenuStatus}>
                         <div className="dropdown-menu-inner-container-top">
-                        <h1 className="dropdown-menu-text"> Platform Launch</h1>
+                        <h1 className="dropdown-menu-text"> {currentBoard} </h1>
                         {
                             menuOpen ?
                                 <img className="dropdown-menu-arrow" src="src\assets\icon-chevron-up.svg" />
@@ -63,39 +64,52 @@ function App() {
                 </div>
             </header>
 
+            
+
             <main className="board-container">
+{/* 
                 {
-                    noData ?
+                    taskData ?
                         <div className="empty-board-message-container">
                             <h2 className="empty-board-message"> This board is empty. Create a new column to get started. </h2>
                             <button className="empty-board-add-column-btn">+  Add New Column</button>
                         </div>
                     :
                     <></>
-                }
-                <div className="menu-modal-container">
-                            {
-                                menuOpen ?
-                                <MenuModal />
-                                :
-                                <></>
-                            }
-                </div>
+                } */}
+   
                 <div className="current-modal-container">
+                    {
+                        menuOpen ?
+                        <MenuModal 
+                            setMenuOpen={setMenuOpen}
+                            setAddBoardOpen={setAddBoardOpen}
+                        />
+                        :
+                        <></>
+                    }
+                    {   
+                        addBoardOpen ?
+                        <AddBoardModal 
+                            setAddBoardOpen={setAddBoardOpen}
+                        />
+                        :
+                        <></>
+                    }
                     {/* <ViewTaskModal/>  */}
                     {/* <AddTaskModal /> */}
                     {/* <EditTaskModal /> */}
-                    {/* <AddBoardModal /> */}
+                    
                     {/* <EditBoardModal /> */}
                     {/* <DeleteBoardModal /> */}
                     {/* <DeleteTaskModal /> */}
                 </div>
 
                 <div className="task-columns-container">
-                        <TaskColumn />
-                        <TaskColumn />
-                        <TaskColumn />
+                        {/* will need to then render the columns here */}
                 </div>
+
+                
             </main>
 
         </div>
