@@ -16,7 +16,7 @@ function EditBoardModal(props) {
 
     function handleSubmit(event) {
         event.preventDefault()
-        props.setEditBoard(false)
+        props.setEditBoardOpen(false)
     }
 
     return (

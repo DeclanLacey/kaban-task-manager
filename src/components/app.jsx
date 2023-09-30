@@ -12,7 +12,9 @@ import AddBoardModal from "./addBoardModal";
 import EditBoardModal from "./editBoardModal";
 import DeleteBoardModal from "./deleteBoardModal";
 import DeleteTaskModal from "./deleteTaskModal";
+import EditDeleteBoardModal from "./editDeleteBoardModal";
 import { render } from "react-dom";
+import { State } from "@splidejs/splide";
 const projectContainer = document.getElementById("root")
 
 
@@ -23,7 +25,9 @@ function App() {
     const [blockScroll, allowScroll] = useScrollBlock()
     const [menuOpen, setMenuOpen] = useState(false)
     const [addBoardOpen, setAddBoardOpen] = useState(false)
-    const [editBoard, setEditBoard] = useState(false)
+    const [editBoardOpen, setEditBoardOpen] = useState(false)
+    const [editDeleteBoardPopUp, setEditDeleteBoardPopUp] = useState(false)
+    const [deleteBoardOpen, setDeleteBoardOpen] = useState(false)
 
     const {data, board} = React.useContext(TaskDataContext)
     const [taskData, setTaskData] = data
@@ -54,8 +58,12 @@ function App() {
 
     
 
-    function changeEditBoardStatus() {
-        setEditBoard(true)
+    function changeEditBoardOpenStatus() {
+        setEditBoardOpen(true)
+    }
+
+    function changeEditDeleteBoardPopUpStatus() {
+        setEditDeleteBoardPopUp(prevState => !prevState)
     }
 
     function renderBoardColumns() {
@@ -90,7 +98,7 @@ function App() {
                 </div>
                 <div className="header-inner-container">
                     <button className="add-task-btn"> + </button>
-                    <img className="three-dot-menu-header" src="src\assets\icon-vertical-ellipsis.svg" />
+                    <img onClick={changeEditDeleteBoardPopUpStatus} className="three-dot-menu-header" src="src\assets\icon-vertical-ellipsis.svg" />
                 </div>
             </header>
 
@@ -106,6 +114,17 @@ function App() {
                         </div>
                     :
                     <></>
+                }
+
+                {
+                    editDeleteBoardPopUp ?
+                        <EditDeleteBoardModal 
+                            setEditBoardOpen={setEditBoardOpen}
+                            setDeleteBoardOpen={setDeleteBoardOpen}
+                            setEditDeleteBoardPopUp={setEditDeleteBoardPopUp}
+                        />
+                    : 
+                        <></>
                 }
    
                 <div className="current-modal-container">
@@ -128,13 +147,19 @@ function App() {
                             <></>
                     }
                     {
-                        editBoard ?
+                        editBoardOpen ?
                             <EditBoardModal 
                                 currentBoardData={currentBoardData}
-                                setEditBoard={setEditBoard}
+                                setEditBoardOpen={setEditBoardOpen}
                             />
                         :
                             <></>
+                    } 
+                    {
+                        deleteBoardOpen ?
+                            <DeleteBoardModal />
+                        :
+                        <></>
                     }
 
 
@@ -142,7 +167,7 @@ function App() {
                     {/* <AddTaskModal /> */}
                     {/* <EditTaskModal /> */}
                     
-                    {/* <DeleteBoardModal /> */}
+                    
                     {/* <DeleteTaskModal /> */}
                 </div>
 

@@ -574,6 +574,52 @@ button {
     margin-bottom: 20px;
 }
 
+
+/* ////////////////////////////////////////////////////////// */
+/* ///// Edit Delete Board Pop Up Modal Styling ///////////// */
+/* ///////////////////////////////////////////////////////// */
+
+.edit-delete-board-modal {
+    background-color: white;
+    width: 192px;
+    height: 94px;
+    position: absolute;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px;
+    box-shadow: 0px 10px 20px 0px rgba(54, 78, 126, 0.25);
+    border-radius: 8px;
+    top: 55px;
+    right: 20px;
+}
+
+.edit-board-choice {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 23px;
+    color: #828FA3;
+}
+
+.edit-board-choice:hover {
+    cursor: pointer;
+}
+
+.delete-board-choice {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 23px; 
+    color: #EA5555;
+}
+
+.delete-board-choice:hover {
+    cursor: pointer;
+}
+
+
 /* ////////////////////////////////////////////////////////// */
 /* /////////////// Edit Task Modal Styling ////////////////// */
 /* ///////////////////////////////////////////////////////// */
