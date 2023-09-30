@@ -7,7 +7,15 @@ function TaskDataContextProvider(props) {
     const [taskData, setTaskData] = useState({
         "boards": [
             {
-              "name": "General Tasks"
+              "name": "General Tasks",
+              "columns": [
+                {
+                  "name": "Todo"
+                },
+                {
+                  "name": "Doing"
+                }
+              ]
             },
             {
               "name": "General Tasks 2"

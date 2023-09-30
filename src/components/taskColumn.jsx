@@ -1,13 +1,17 @@
 import React from "react"; 
 import Task from "./task";
 
-function TaskColumn() {
+function TaskColumn(props) {
+
+    const name = props.currentBoardDataColumn.name
+
+
     return (
         <div className="task-column">
             <div className="column-title-container">
-                {/* <div className="column-title-circle"> </div> */}
+                <div className="column-title-circle"> </div>
                 {/* These cirlces will need to be different colors */}
-                <h1 className="column-title">  </h1>
+                <h1 className="column-title"> {name} (0)  </h1>
                 {/* Todo (0) */}
             </div>
                 {/* you will need one for loop creating each column,

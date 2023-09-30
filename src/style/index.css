@@ -335,6 +335,10 @@ button {
     overflow-x: auto;
 }
 
+.task-column {
+    min-width: 280px;
+}
+
 
 .task-container {
     width: 280px;

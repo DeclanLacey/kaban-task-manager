@@ -5,6 +5,7 @@ const columnElements = []
 const columnNames = {
 
 }
+let count = 0
 
 function AddBoardModal(props) {
 
@@ -35,7 +36,7 @@ function AddBoardModal(props) {
     }
 
     function addNewColumn() {
-        let count = columnCount + 1
+        count++
         buildColumns(count)
     
         setColumnCount(prevState => prevState + 1)
@@ -79,6 +80,7 @@ function AddBoardModal(props) {
                 }
             })
         }
+        props.setCurrentBoard(event.target.boardName.value)
         props.setAddBoardOpen(false)
     }
 

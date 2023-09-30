@@ -12,14 +12,18 @@ import AddBoardModal from "./addBoardModal";
 import EditBoardModal from "./editBoardModal";
 import DeleteBoardModal from "./deleteBoardModal";
 import DeleteTaskModal from "./deleteTaskModal";
+import { render } from "react-dom";
 const projectContainer = document.getElementById("root")
 
 
 function App() {
 
+    let currentBoardData
+
     const [blockScroll, allowScroll] = useScrollBlock()
     const [menuOpen, setMenuOpen] = useState(false)
     const [addBoardOpen, setAddBoardOpen] = useState(false)
+    const [editBoard, setEditBoard] = useState(false)
 
     const {data, board} = React.useContext(TaskDataContext)
     const [taskData, setTaskData] = data
@@ -39,6 +43,32 @@ function App() {
     //     allowScroll()
     // }
 
+    function getCurrentBoardData() {
+        for (let i = 0; i < taskData.boards.length; i++) {
+            if (taskData.boards[i].name === currentBoard) {
+                currentBoardData = taskData.boards[i]
+            }
+        }
+
+    }
+
+    
+
+    function changeEditBoardStatus() {
+        setEditBoard(true)
+    }
+
+    function renderBoardColumns() {
+        let columns = []
+        for (let i = 0; i < currentBoardData.columns.length; i++) {
+            columns.push( <TaskColumn currentBoardDataColumn={currentBoardData.columns[i]} key={i} />)
+        }
+        return columns
+    }
+
+
+
+    getCurrentBoardData()
 
     return (
         <div className="app-container">
@@ -67,46 +97,62 @@ function App() {
             
 
             <main className="board-container">
-{/* 
+
                 {
-                    taskData ?
+                    currentBoardData.columns === undefined ?
                         <div className="empty-board-message-container">
                             <h2 className="empty-board-message"> This board is empty. Create a new column to get started. </h2>
-                            <button className="empty-board-add-column-btn">+  Add New Column</button>
+                            <button className="empty-board-add-column-btn" onClick={changeEditBoardStatus}>+  Add New Column</button>
                         </div>
                     :
                     <></>
-                } */}
+                }
    
                 <div className="current-modal-container">
                     {
                         menuOpen ?
-                        <MenuModal 
-                            setMenuOpen={setMenuOpen}
-                            setAddBoardOpen={setAddBoardOpen}
-                        />
+                            <MenuModal 
+                                setMenuOpen={setMenuOpen}
+                                setAddBoardOpen={setAddBoardOpen}
+                            />
                         :
-                        <></>
+                            <></>
                     }
                     {   
                         addBoardOpen ?
-                        <AddBoardModal 
-                            setAddBoardOpen={setAddBoardOpen}
-                        />
+                            <AddBoardModal 
+                                setAddBoardOpen={setAddBoardOpen}
+                                setCurrentBoard={setCurrentBoard}
+                            />
                         :
-                        <></>
+                            <></>
                     }
+                    {
+                        editBoard ?
+                            <EditBoardModal 
+                                currentBoardData={currentBoardData}
+                                setEditBoard={setEditBoard}
+                            />
+                        :
+                            <></>
+                    }
+
+
                     {/* <ViewTaskModal/>  */}
                     {/* <AddTaskModal /> */}
                     {/* <EditTaskModal /> */}
                     
-                    {/* <EditBoardModal /> */}
                     {/* <DeleteBoardModal /> */}
                     {/* <DeleteTaskModal /> */}
                 </div>
 
                 <div className="task-columns-container">
-                        {/* will need to then render the columns here */}
+                    {
+                        currentBoardData.columns === undefined ?
+                            <></>
+                        :
+                            renderBoardColumns()
+                    }
                 </div>
 
                 
