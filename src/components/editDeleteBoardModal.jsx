@@ -9,7 +9,6 @@ function EditDeleteBoardModal(props) {
     }
 
     function handleEditBoardClick() {
-        console.log("ran")
         props.setEditBoardOpen(true)
         props.setEditDeleteBoardPopUp(false)
     }

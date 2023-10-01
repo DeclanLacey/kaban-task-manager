@@ -10,7 +10,28 @@ function TaskDataContextProvider(props) {
               "name": "General Tasks",
               "columns": [
                 {
-                  "name": "Todo"
+                  "name": "Todo",
+                  "tasks": [
+                    {
+                      "title": "Build UI for onboarding flow",
+                      "description": "",
+                      "status": "Todo",
+                      "subtasks": [
+                        {
+                          "title": "Sign up page",
+                          "isCompleted": true
+                        },
+                        {
+                          "title": "Sign in page",
+                          "isCompleted": false
+                        },
+                        {
+                          "title": "Welcome page",
+                          "isCompleted": false
+                        }
+                      ]
+                    }
+                  ]
                 },
                 {
                   "name": "Doing"
