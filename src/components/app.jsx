@@ -33,8 +33,6 @@ function App() {
     const [taskData, setTaskData] = data
     const [currentBoard, setCurrentBoard] = board
 
-
-
     function changeMenuStatus() {
         setMenuOpen(prevState => !prevState)
     }
@@ -46,8 +44,10 @@ function App() {
     // }else if (menuOpen === false) {
     //     allowScroll()
     // }
+    
 
     function getCurrentBoardData() {
+        console.log(currentBoard)
         for (let i = 0; i < taskData.boards.length; i++) {
             if (taskData.boards[i].name === currentBoard) {
                 currentBoardData = taskData.boards[i]
@@ -56,7 +56,6 @@ function App() {
 
     }
 
-    
 
     function changeEditBoardOpenStatus() {
         setEditBoardOpen(true)
@@ -73,8 +72,6 @@ function App() {
         }
         return columns
     }
-
-
 
     getCurrentBoardData()
 
@@ -110,7 +107,7 @@ function App() {
                     currentBoardData.columns === undefined ?
                         <div className="empty-board-message-container">
                             <h2 className="empty-board-message"> This board is empty. Create a new column to get started. </h2>
-                            <button className="empty-board-add-column-btn" onClick={changeEditBoardStatus}>+  Add New Column</button>
+                            <button className="empty-board-add-column-btn" onClick={changeEditBoardOpenStatus}>+  Add New Column</button>
                         </div>
                     :
                     <></>
@@ -151,13 +148,21 @@ function App() {
                             <EditBoardModal 
                                 currentBoardData={currentBoardData}
                                 setEditBoardOpen={setEditBoardOpen}
+                                setTaskData={setTaskData}
+                                setCurrentBoard={setCurrentBoard}
                             />
                         :
                             <></>
                     } 
                     {
                         deleteBoardOpen ?
-                            <DeleteBoardModal />
+                            <DeleteBoardModal 
+                                currentBoard={currentBoard}
+                                setDeleteBoardOpen={setDeleteBoardOpen}
+                                setTaskData={setTaskData}
+                                setCurrentBoard={setCurrentBoard}
+                                taskData={taskData}
+                            />
                         :
                         <></>
                     }

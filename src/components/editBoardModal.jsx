@@ -8,33 +8,41 @@ function EditBoardModal(props) {
     const [boardColumns, setBoardColumns] = useState(initalBoardData.columns)
     const [boardName, setBoardName] = useState(props.currentBoardData.name)
 
-    ////////////////////////////////////////////////////////////
-    ///////////// YOU NEED TO FINISH THIS PART /////////////////
-    ///////////////////////////////////////////////////////////
     
-    console.log(boardColumns)
-
     function renderBoardColumns() {
-        for (let i = 0; i < boardColumns.length; i++) {
-            columnElements.push(
-                <div className="input-with-x-container" key={i} id={i}> 
-                    <input className="subtask-input" type="text" onChange={handleColumnChange} value={boardColumns[i].name} />
-                    <img className="subtask-delete-btn-img" onClick={deleteColumnElement} src="src\assets\icon-cross.svg"/>
-                </div> 
-            )
+        if (!boardColumns) {
+
+        }else {
+            for (let i = 0; i < boardColumns.length; i++) {
+                columnElements.push(
+                    <div className="input-with-x-container" key={i} id={i}> 
+                        <input className="subtask-input" type="text" onChange={handleColumnChange} value={boardColumns[i].name} />
+                        <img className="subtask-delete-btn-img" onClick={deleteColumnElement} src="src\assets\icon-cross.svg"/>
+                    </div> 
+                )
+            }
         }
         return columnElements
     }
 
     function deleteColumnElement(event) {
+        const currentElementId = parseInt(event.target.parentElement.id)
         const currentElementvalue = event.target.previousElementSibling.value
         
         setBoardColumns( prevState => {
-                return prevState.filter((item) => item.name !== currentElementvalue)
+                return prevState.filter((item, index) => index !== currentElementId)
                 
             }
         )
         
+    }
+
+    function addColumnElement() {
+        if (boardColumns) {
+            setBoardColumns(prevState => [...prevState, {name: ""}])
+        }else {
+            setBoardColumns([{name: ""}])
+        }
     }
 
     function handleColumnChange(event) {
@@ -60,6 +68,23 @@ function EditBoardModal(props) {
 
     function handleSubmit(event) {
         event.preventDefault()
+        props.setTaskData(prevState => {
+            return {
+               boards: prevState.boards.map((item) => {
+                    if (item.name === initalBoardData.name) {
+                        return {
+                            name: boardName,
+                            columns: boardColumns
+                        }
+                    }else {
+                        return item
+                    }
+               })
+              
+            }
+           
+        })
+        props.setCurrentBoard(boardName)
         props.setEditBoardOpen(false)
     }
 
@@ -76,7 +101,7 @@ function EditBoardModal(props) {
                         <div className="modal-input-container">
                             <h3 className="modal-label"> Board Columns </h3>
                             {renderBoardColumns()}
-                            <button type="button" className="modal-add-new-btn" > +Add New Column </button>
+                            <button type="button" className="modal-add-new-btn" onClick={addColumnElement} > +Add New Column </button>
                         </div>
 
                         <button type="submit" className="modal-final-btn"> Save Changes </button>

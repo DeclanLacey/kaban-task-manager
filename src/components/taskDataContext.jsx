@@ -40,9 +40,22 @@ function TaskDataContextProvider(props) {
             },
             {
               "name": "General Tasks 2"
+            },
+            {
+              "name": "General Tasks 3",
+              "columns": [
+                {
+                  "name": "Todo"
+                },
+                {
+                  "name": "Done"
+                }
+              ]
             }
           ]
     })
+
+
 
     const [currentBoard, setCurrentBoard] = useState(taskData.boards[0].name)
     
