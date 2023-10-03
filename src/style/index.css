@@ -415,6 +415,13 @@ button {
     
 }
 
+.desc-box {
+    max-width: 100%;
+    min-width: 100%;
+    min-height: 112px;
+    max-height: 300px;
+}
+
 .modal-content {
     width: 93%;
     height: fit-content;

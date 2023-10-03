@@ -28,6 +28,7 @@ function App() {
     const [editBoardOpen, setEditBoardOpen] = useState(false)
     const [editDeleteBoardPopUp, setEditDeleteBoardPopUp] = useState(false)
     const [deleteBoardOpen, setDeleteBoardOpen] = useState(false)
+    const [addTaskOpen, setAddTaskOpen] = useState(false)
 
     const {data, board} = React.useContext(TaskDataContext)
     const [taskData, setTaskData] = data
@@ -44,10 +45,11 @@ function App() {
     // }else if (menuOpen === false) {
     //     allowScroll()
     // }
+
+    console.log(taskData)
     
 
     function getCurrentBoardData() {
-        console.log(currentBoard)
         for (let i = 0; i < taskData.boards.length; i++) {
             if (taskData.boards[i].name === currentBoard) {
                 currentBoardData = taskData.boards[i]
@@ -56,6 +58,10 @@ function App() {
 
     }
 
+    function changeAddTaskOpenStatus() {
+        setAddTaskOpen(true)
+        setMenuOpen(false)
+    }
 
     function changeEditBoardOpenStatus() {
         setEditBoardOpen(true)
@@ -94,7 +100,7 @@ function App() {
                     </div>
                 </div>
                 <div className="header-inner-container">
-                    <button className="add-task-btn"> + </button>
+                    <button className="add-task-btn" onClick={changeAddTaskOpenStatus}> + </button>
                     <img onClick={changeEditDeleteBoardPopUpStatus} className="three-dot-menu-header" src="src\assets\icon-vertical-ellipsis.svg" />
                 </div>
             </header>
@@ -166,10 +172,22 @@ function App() {
                         :
                         <></>
                     }
+                    {
+                        addTaskOpen ?
+                            <AddTaskModal 
+                                currentBoardData={currentBoardData}
+                                setTaskData={setTaskData}
+                                taskData={taskData}
+
+                            /> 
+                        :
+                            <></>
+
+
+                    }
 
 
                     {/* <ViewTaskModal/>  */}
-                    {/* <AddTaskModal /> */}
                     {/* <EditTaskModal /> */}
                     
                     

@@ -15,15 +15,15 @@ function AddBoardModal(props) {
 
 
     function buildColumns(index) {
-            columnElements.push(<div className="input-with-x-container" key={index}> 
-            <input required className="subtask-input" type="text" onChange={handleColumnChange} name={`boardColumn${index}`}/>
-            <img className="subtask-delete-btn-img"  src="src\assets\icon-cross.svg" onClick={removeColumnInput}/>
-            </div>)
+            columnElements.push(
+            <div className="input-with-x-container" key={index}> 
+                <input required className="subtask-input" type="text" onChange={handleColumnChange} name={`boardColumn${index}`}/>
+                <img className="subtask-delete-btn-img"  src="src\assets\icon-cross.svg" onClick={removeColumnInput}/>
+            </div>
+            )
     }
 
 
-    //////////////////// NEED TO TEST TO MAKE SURE THAT THIS DOES NOT CAUSE ISSUES
-    ////////////////// ELEMENTS ARE HAVING THE SAME KEYS
     function removeColumnInput(event) {
         event.target.parentElement.remove()
         setColumnCount(prevCount => prevCount - 1)
