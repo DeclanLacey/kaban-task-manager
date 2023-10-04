@@ -20,6 +20,7 @@ img {
 body {
     background-color: #F4F7FD;
 }
+
 button {
     cursor: pointer;
 }
@@ -395,6 +396,13 @@ button {
     margin-right: 10px;
 }
 
+.task-title:hover {
+    pointer-events: none;
+}
+
+.task-subtask-title:hover {
+    pointer-events: none;
+}
 
 
 

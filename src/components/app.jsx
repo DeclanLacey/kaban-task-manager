@@ -46,7 +46,6 @@ function App() {
     //     allowScroll()
     // }
 
-    console.log(taskData)
     
 
     function getCurrentBoardData() {
@@ -56,6 +55,10 @@ function App() {
             }
         }
 
+    }
+
+    function editTask(event) {
+        console.log(event.target)
     }
 
     function changeAddTaskOpenStatus() {
@@ -74,12 +77,15 @@ function App() {
     function renderBoardColumns() {
         let columns = []
         for (let i = 0; i < currentBoardData.columns.length; i++) {
-            columns.push( <TaskColumn currentBoardDataColumn={currentBoardData.columns[i]} key={i} />)
+            columns.push( <TaskColumn editTask={editTask} currentBoardDataColumn={currentBoardData.columns[i]} key={i} />)
         }
         return columns
     }
 
     getCurrentBoardData()
+
+    // console.log(currentBoardData)
+
 
     return (
         <div className="app-container">
@@ -178,7 +184,7 @@ function App() {
                                 currentBoardData={currentBoardData}
                                 setTaskData={setTaskData}
                                 taskData={taskData}
-
+                                setAddTaskOpen={setAddTaskOpen}
                             /> 
                         :
                             <></>

@@ -1,13 +1,31 @@
 import React from "react"; 
 import Task from "./task";
+import { render } from "react-dom";
+
 
 function TaskColumn(props) {
 
     const name = props.currentBoardDataColumn.name
+    const tasks = props.currentBoardDataColumn.tasks
+    let taskElements = []
+   
+    function renderTasks() {
+        for (let i = 0; i < tasks.length; i++) {
+            let name = tasks[i].title
+            taskElements.push( <Task editTask={props.editTask} key={name} taskData={tasks[i]}/>)
+        }
+    }
+
+
+    if (tasks === undefined) {
+
+    }else {
+        renderTasks()
+    }
 
 
     return (
-        <div className="task-column">
+        <div key={1} className="task-column">
             <div className="column-title-container">
                 <div className="column-title-circle"> </div>
                 {/* These cirlces will need to be different colors */}
@@ -19,7 +37,7 @@ function TaskColumn(props) {
                 to decide which peices of data get place inside them,
                 probably by passing data to the task file and rendering that */}
             <div className="task-column-tasks-container">
-                {/* for loop placing the right tasks here */}
+                {taskElements}
             </div>
         </div>
     )

@@ -35,6 +35,7 @@ function TaskDataContextProvider(props) {
                 },
                 {
                   "name": "Doing"
+                  
                 }
               ]
             },

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-const subtaskElements = []
-const subtaskNames = {
+let subtaskElements = []
+let subtaskNames = {
 
 }
 let count = 0
@@ -51,7 +51,16 @@ function AddTaskModal(props) {
 
     function handleTaskSubmit(event) {
         event.preventDefault()
-        // console.log(props.taskData)
+        const subtaskArray = []
+        let selectedColumn = event.target.status.value
+        
+        for (let i = 0; i < subtaskCount; i++) {
+            subtaskArray.push({
+                "title": subtaskNames[`subtask${i + 1}`],
+                "isCompleted": false
+            })
+        }
+
         props.setTaskData(prevState => {
             return {
                 boards: prevState.boards.map((board, index) => {
@@ -59,29 +68,31 @@ function AddTaskModal(props) {
                         return  {
                             name: currentData.name,
                             columns: currentData.columns.map((column, columnIndex) => {
-                                if (column.name === event.target.status.value) {
+                                if (column.name === selectedColumn && prevState.boards[index].columns[columnIndex].tasks != undefined) {
                                     return {
                                         name: column.name,
-                                        tasks: [
+                                        tasks: 
+                                        [
                                             ...prevState.boards[index].columns[columnIndex].tasks,
                                             {
                                                 title: event.target.title.value,
                                                 description: event.target.desc.value,
                                                 status: event.target.status.value,
-                                                subtasks: [
-                                                  {
-                                                    "title": "Sign up page",
-                                                    "isCompleted": true
-                                                  },
-                                                  {
-                                                    "title": "Sign in page",
-                                                    "isCompleted": false
-                                                  },
-                                                  {
-                                                    "title": "Welcome page",
-                                                    "isCompleted": false
-                                                  }
-                                                ]
+                                                subtasks: subtaskArray
+                                            }
+                                        ]
+                                        
+                                    }
+                                }else if (column.name === selectedColumn && prevState.boards[index].columns[columnIndex].tasks === undefined) {
+                                    return {
+                                        name: column.name,
+                                        tasks: 
+                                        [
+                                            {
+                                                title: event.target.title.value,
+                                                description: event.target.desc.value,
+                                                status: event.target.status.value,
+                                                subtasks: subtaskArray
                                             }
                                         ]
                                         
@@ -98,6 +109,10 @@ function AddTaskModal(props) {
                })
             }
         })
+
+        subtaskElements = []
+        subtaskNames = {}
+        props.setAddTaskOpen(false)
     }
 
 
