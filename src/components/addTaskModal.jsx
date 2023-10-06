@@ -4,6 +4,7 @@ let subtaskElements = []
 let subtaskNames = {
 
 }
+
 let count = 0
 
 function AddTaskModal(props) {
@@ -47,6 +48,12 @@ function AddTaskModal(props) {
         const name = event.target.name
         const value = event.target.value
         subtaskNames[name] = value
+    }
+
+    function closeAddTaskModal() {
+        subtaskElements = []
+        subtaskNames = {}
+        props.setAddTaskOpen(false)
     }
 
     function handleTaskSubmit(event) {
@@ -119,7 +126,7 @@ function AddTaskModal(props) {
 
     return (
         <div className="add-task-modal">
-            <div className="modal-page-cover"> </div>
+            <div className="modal-page-cover" onClick={closeAddTaskModal}> </div>
             <div className="modal-content">
                 <form onSubmit={handleTaskSubmit}>
                     <h1 className="modal-title"> Add New Task</h1>

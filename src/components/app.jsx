@@ -13,14 +13,13 @@ import EditBoardModal from "./editBoardModal";
 import DeleteBoardModal from "./deleteBoardModal";
 import DeleteTaskModal from "./deleteTaskModal";
 import EditDeleteBoardModal from "./editDeleteBoardModal";
-import { render } from "react-dom";
-import { State } from "@splidejs/splide";
-const projectContainer = document.getElementById("root")
 
 
 function App() {
 
     let currentBoardData
+    let allTasks = []
+
 
     const [blockScroll, allowScroll] = useScrollBlock()
     const [menuOpen, setMenuOpen] = useState(false)
@@ -29,14 +28,19 @@ function App() {
     const [editDeleteBoardPopUp, setEditDeleteBoardPopUp] = useState(false)
     const [deleteBoardOpen, setDeleteBoardOpen] = useState(false)
     const [addTaskOpen, setAddTaskOpen] = useState(false)
+    const [viewTaskOpen, setViewTaskOpen] = useState(false)
+    const [currentTaskData, setCurrentTaskData] = useState()
+    const [currentColumnData, setCurrentColumnData] = useState()
 
-    const {data, board} = React.useContext(TaskDataContext)
+
+    const {data, board} = useContext(TaskDataContext)
     const [taskData, setTaskData] = data
     const [currentBoard, setCurrentBoard] = board
 
     function changeMenuStatus() {
         setMenuOpen(prevState => !prevState)
     }
+
 
     ////////////////// THE LAYOUT BREAKS WHEN THESE ARE CALLED
     ///// This may change (call these functions when the button is clicked?)
@@ -46,7 +50,6 @@ function App() {
     //     allowScroll()
     // }
 
-    
 
     function getCurrentBoardData() {
         for (let i = 0; i < taskData.boards.length; i++) {
@@ -54,12 +57,9 @@ function App() {
                 currentBoardData = taskData.boards[i]
             }
         }
-
     }
 
-    function editTask(event) {
-        console.log(event.target)
-    }
+   
 
     function changeAddTaskOpenStatus() {
         setAddTaskOpen(true)
@@ -74,17 +74,29 @@ function App() {
         setEditDeleteBoardPopUp(prevState => !prevState)
     }
 
+    getCurrentBoardData()
+
     function renderBoardColumns() {
+
+        for (let i = 0; i < currentBoardData.columns.length; i++) {
+            if (currentBoardData.columns[i].tasks != undefined) {
+
+                for(let j = 0; j < currentBoardData.columns[i].tasks.length; j++) {
+                    allTasks.push(currentBoardData.columns[i].tasks[j])
+                }
+            }
+        }
+
+
         let columns = []
         for (let i = 0; i < currentBoardData.columns.length; i++) {
-            columns.push( <TaskColumn editTask={editTask} currentBoardDataColumn={currentBoardData.columns[i]} key={i} />)
+            columns.push( <TaskColumn setCurrentColumnData={setCurrentColumnData} setCurrentTaskData={setCurrentTaskData} allTasks={allTasks}  setViewTaskOpen={setViewTaskOpen} currentBoardDataColumn={currentBoardData.columns[i]} key={i} />)
         }
         return columns
     }
 
-    getCurrentBoardData()
+    
 
-    // console.log(currentBoardData)
 
 
     return (
@@ -191,9 +203,23 @@ function App() {
 
 
                     }
+                    {
+                        viewTaskOpen ?
+                            <ViewTaskModal
+                                currentTaskData={currentTaskData}
+                                // setTaskData={setTaskData}
+                                // taskData={taskData}
+                                currentBoard={currentBoard}
+                                // setCurrentTaskData={setCurrentTaskData}
+                                setViewTaskOpen={setViewTaskOpen}
+                                currentBoardData={currentBoardData}
+                                currentColumnData={currentColumnData}
+                            />
+                        :
+                            <></>
+                    }
 
 
-                    {/* <ViewTaskModal/>  */}
                     {/* <EditTaskModal /> */}
                     
                     

@@ -14,7 +14,7 @@ function TaskDataContextProvider(props) {
                   "tasks": [
                     {
                       "title": "Build UI for onboarding flow",
-                      "description": "",
+                      "description": "This is a test description",
                       "status": "Todo",
                       "subtasks": [
                         {
@@ -36,6 +36,10 @@ function TaskDataContextProvider(props) {
                 {
                   "name": "Doing"
                   
+                },
+                {
+                  "name": "Doing Two"
+                  
                 }
               ]
             },
@@ -55,7 +59,6 @@ function TaskDataContextProvider(props) {
             }
           ]
     })
-
 
 
     const [currentBoard, setCurrentBoard] = useState(taskData.boards[0].name)

@@ -14,6 +14,10 @@ function AddBoardModal(props) {
     const [columnCount, setColumnCount] = useState(0)
 
 
+    function closeAddBoardModal() {
+        props.setAddBoardOpen(false)
+    }
+
     function buildColumns(index) {
             columnElements.push(
             <div className="input-with-x-container" key={index}> 
@@ -86,7 +90,7 @@ function AddBoardModal(props) {
 
     return (
         <div className="add-board-modal">
-            <div className="modal-page-cover"> </div>
+            <div className="modal-page-cover" onClick={closeAddBoardModal}> </div>
             <div className="modal-content">
                 <form onSubmit={handleSubmit}>
                     <h1 className="modal-title"> Add New Board </h1>

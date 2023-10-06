@@ -50,7 +50,6 @@ button {
 
 /* //// Header Dropdown menu styling //// */
 
-
 .dropdown-menu:hover {
     cursor: pointer;
 }
@@ -656,6 +655,7 @@ button {
 .task-title-container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 25px;
 }
 
