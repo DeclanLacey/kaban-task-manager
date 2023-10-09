@@ -1,18 +1,17 @@
 import React, {useState} from "react";
 import { TaskDataContext } from "./taskDataContext";
 
+let count = 0
 const columnElements = []
 const columnNames = {
 
 }
-let count = 0
 
 function AddBoardModal(props) {
 
     const {data, board} = React.useContext(TaskDataContext)
     const [taskData, setTaskData] = data
     const [columnCount, setColumnCount] = useState(0)
-
 
     function closeAddBoardModal() {
         props.setAddBoardOpen(false)
@@ -26,7 +25,6 @@ function AddBoardModal(props) {
             </div>
             )
     }
-
 
     function removeColumnInput(event) {
         event.target.parentElement.remove()
@@ -42,50 +40,56 @@ function AddBoardModal(props) {
     function addNewColumn() {
         count++
         buildColumns(count)
-    
         setColumnCount(prevState => prevState + 1)
     }
 
-
     function handleSubmit(event) {
         event.preventDefault()
-        
+        let boardNames = []
 
-        let newColumns = []
-        for (let i = 0; i < columnCount; i++) {
-            newColumns.push({name: Object.values(columnNames)[i]})
+        for (let i = 0; i < taskData.boards.length; i++) {
+            boardNames.push(taskData.boards[i].name)
         }
 
-
-        if(columnCount > 0) {
-            setTaskData(prevData => {
-                return {
-                    ...prevData,
-                    boards: [
-                        ...prevData.boards,
-                        {
-                            "name": event.target.boardName.value,
-                            "columns": newColumns
-                        }
-                    ]
-                }
-            })
-        
+        if (boardNames.includes(event.target.boardName.value)) {
+            alert(`${event.target.boardName.value} already exists as a board. Please Choose a different name.`)
         }else {
-            setTaskData(prevData => {
-                return {
-                    ...prevData,
-                    boards: [
-                        ...prevData.boards,
-                        {
-                            "name": event.target.boardName.value
-                        }
-                    ]
-                }
-            })
+            let newColumns = []
+
+            for (let i = 0; i < columnCount; i++) {
+                newColumns.push({name: Object.values(columnNames)[i]})
+            }
+    
+            if(columnCount > 0) {
+                setTaskData(prevData => {
+                    return {
+                        ...prevData,
+                        boards: [
+                            ...prevData.boards,
+                            {
+                                "name": event.target.boardName.value,
+                                "columns": newColumns
+                            }
+                        ]
+                    }
+                })
+            
+            }else {
+                setTaskData(prevData => {
+                    return {
+                        ...prevData,
+                        boards: [
+                            ...prevData.boards,
+                            {
+                                "name": event.target.boardName.value
+                            }
+                        ]
+                    }
+                })
+            }
+            props.setCurrentBoard(event.target.boardName.value)
+            props.setAddBoardOpen(false)
         }
-        props.setCurrentBoard(event.target.boardName.value)
-        props.setAddBoardOpen(false)
     }
 
     return (
@@ -103,11 +107,8 @@ function AddBoardModal(props) {
                         <div id="column-input-container">
                             {columnElements}
                         </div>
-                        
                         <button type="button" className="modal-add-new-btn" onClick={addNewColumn}> +Add New Column </button>
-
                     </div>
-
                     <button type="submit" className="modal-final-btn"> Create New Board</button>
                 </form>
             </div>

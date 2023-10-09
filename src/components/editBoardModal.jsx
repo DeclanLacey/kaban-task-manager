@@ -4,10 +4,8 @@ function EditBoardModal(props) {
     
     let columnElements = []
     let initalBoardData = props.currentBoardData
-
     const [boardColumns, setBoardColumns] = useState(initalBoardData.columns)
     const [boardName, setBoardName] = useState(props.currentBoardData.name)
-
     
     function renderBoardColumns() {
         if (!boardColumns) {
@@ -64,7 +62,9 @@ function EditBoardModal(props) {
         setBoardName(event.target.value)
     }
 
-
+    function closeEditBoardModal() {
+        props.setEditBoardOpen(false)
+    }
 
     function handleSubmit(event) {
         event.preventDefault()
@@ -80,17 +80,15 @@ function EditBoardModal(props) {
                         return item
                     }
                })
-              
-            }
-           
+            }     
         })
         props.setCurrentBoard(boardName)
-        props.setEditBoardOpen(false)
+        closeEditBoardModal()
     }
 
     return (
         <div className="edit-board-modal">
-            <div className="modal-page-cover"> </div>
+            <div className="modal-page-cover" onClick={closeEditBoardModal}> </div>
                 <div className="modal-content">
                     <form onSubmit={handleSubmit}>
                         <h1 className="modal-title"> Edit Board </h1>

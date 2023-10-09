@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { render } from "react-dom";
+import React, {useContext, useEffect, useState} from "react";
+import EditDeleteTaskModal from "./editDeleteTaskModal";
 import { TaskDataContext } from "./taskDataContext";
-
 
 let selectedTaskData
 
 function ViewTaskModal(props) {
 
     let currentColumnDataCopy = props.currentColumnData
-
-    const {data, board} = React.useContext(TaskDataContext)
+    const {data, board} = useContext(TaskDataContext)
     const [taskData, setTaskData] = data
 
     if (selectedTaskData === undefined) {
         selectedTaskData = props.currentTaskData
-    }    
+    }else if (selectedTaskData.title != props.currentTaskData.title) {
+        selectedTaskData = props.currentTaskData
+    }
 
     const subtaskCount = selectedTaskData.subtasks.length
     const subtasks = selectedTaskData.subtasks
@@ -29,15 +29,7 @@ function ViewTaskModal(props) {
         }
     }
 
-    
-
-    //////////////////////////////////////////////
-    /////////// FOR SOME REASON THE DATA IS GETTING MESSED UP WHEN YOU CHANGE MORE THAN ONE CHECBOX 
-//////////////////////////////////////////////////
-
-
     function changeIsCompletedStatus(event) {
-
         setTaskData(prevState => {
                 return {
                     boards: prevState.boards.map((board, index) => { 
@@ -53,7 +45,6 @@ function ViewTaskModal(props) {
                                                     selectedTaskData = {
                                                         ...task,
                                                         subtasks: task.subtasks.map((subtask, index) => {
-                                        
                                                             if(subtask.title === event.target.nextSibling.textContent) {
                                                                 return {
                                                                     ...subtask,
@@ -67,7 +58,6 @@ function ViewTaskModal(props) {
                                                     return {
                                                         ...task,
                                                         subtasks: task.subtasks.map((subtask, index) => {
-                                        
                                                             if(subtask.title === event.target.nextSibling.textContent) {
                                                                 return {
                                                                     ...subtask,
@@ -82,24 +72,19 @@ function ViewTaskModal(props) {
                                                     return task
                                                 }
                                             })
-                                        }
-                                            
+                                        }  
                                     }else {
-                                        return column
-                                        
+                                        return column   
                                     }
                                 })
-
                             }
                         }else {
                             return board
-                        }
-                        
+                        }  
                     })
                 }
             }
         )
-    
     }
 
     function handleChangeStatus(event) {
@@ -108,9 +93,7 @@ function ViewTaskModal(props) {
             ...selectedTaskData,
             status: event.target.value
         }
-
-        // let currentColumnDataTasksDeleted = delete currentColumnDataCopy.tasks
-
+        
         setTaskData(prevState => {
             return {
                 boards: prevState.boards.map((board, index) => { 
@@ -124,29 +107,22 @@ function ViewTaskModal(props) {
                                         return {
                                             ...currentColumnDataCopy
                                         }
-                                       
                                     }else {
                                         return {
                                             ...column,
                                             tasks: column.tasks.filter((task) => task.title != selectedTaskData.title)
                                         }
-                                    }                       
-                                        
+                                    }                         
                                 }else if (column.name === event.target.value) {
-
                                     if (column.tasks != undefined) {
                                         return {
                                             ...column,
-                                            tasks: column.tasks.map((task, index) => {
-                                                if (task.title === selectedTaskData.title) {
-                                                    return {
-                                                        ...task,
-                                                        status: selectedTaskData.status,
-                                                    }
-                                                }else {
-                                                    return task
+                                            tasks: [
+                                                ...column.tasks,
+                                                {
+                                                    ...selectedTaskData
                                                 }
-                                            })
+                                            ]
                                         }
                                     }else {
                                         return {
@@ -159,37 +135,25 @@ function ViewTaskModal(props) {
                                             ]
                                         }
                                     }
-                                    
                                 }else {
-
                                     return column
-                                    
                                 }
                             })
-
                         }
                     }else {
                         return board
-                    }
-                    
+                    }                    
                 })
             }
-        }
-        )
-
+        })
         closeViewTaskModal()
-    }
-
-    function closeViewTaskModal() {
-        props.setViewTaskOpen(false)
-    
     }
 
     function renderSubtasks() {
         for(let i = 0; i < subtaskCount; i++) {
             subtaskElements.push(
                 <div className="subtask" key={i}> 
-                    <input className="subtask-checkbox" type="checkbox" onChange={changeIsCompletedStatus} checked={subtasks[i].isCompleted}/>
+                    <input className="subtask-checkbox" type="checkbox" onChange={changeIsCompletedStatus} checked={selectedTaskData.subtasks[i].isCompleted}/>
                     <label className="subtask-label">{subtasks[i].title}</label>
                 </div>
             )
@@ -210,23 +174,51 @@ function ViewTaskModal(props) {
         )
     }
 
+    function changeEditDeleteTaskModalStatus() {
+        props.setEditDeleteTaskOpen(prevState => !prevState)
+    }
+
+    function closeEditDeleteTaskModal() {
+        props.setEditDeleteTaskOpen(false)
+    }
+
+    function closeViewTaskModal() {
+        props.setViewTaskOpen(false)
+        props.setEditDeleteTaskOpen(false)
+        
+    }
+
     renderSubtasks()
     calculateCompletedSubtaskcount()
+    // console.log(selectedTaskData)
 
     return (
         <div className="view-task-modal">
             <div className="modal-page-cover" onClick={closeViewTaskModal}> </div>
-            <div className="modal-content">
+            <div className="modal-content" >
+                    {
+                        props.editDeleteTaskOpen ?
+                            <EditDeleteTaskModal 
+                                setEditTaskOpen={props.setEditTaskOpen}
+                                setDeleteTaskOpen={props.setDeleteTaskOpen}
+                                setEditDeleteTaskOpen={props.setEditDeleteTaskOpen}
+                                setViewTaskOpen={props.setViewTaskOpen}
+                                selectedTaskData={selectedTaskData}
+                                setEditTaskSelectedTaskData={props.setEditTaskSelectedTaskData}
+                            />
+                        :
+                            <></>
+                    }
                 <div className="task-title-container">
                     <h1 className="view-task-title"> {selectedTaskData.title} </h1>
-                    <img className="view-task-three-dots-svg" src="src\assets\icon-vertical-ellipsis.svg" />
+                    <img className="view-task-three-dots-svg" onClick={changeEditDeleteTaskModalStatus} src="src\assets\icon-vertical-ellipsis.svg" />
                 </div>
                 <p className="task-description"> {selectedTaskData.description}</p>
                 <p className="subtask-title"> Subtasks ({completetdSubtaskCount} of {subtaskCount}) </p>
-                <div className="substask-container">
+                <div className="substask-container" onClick={closeEditDeleteTaskModal}>
                     {subtaskElements}
                 </div>
-                <div className="current-status-container">
+                <div className="current-status-container" onClick={closeEditDeleteTaskModal}>
                     <label className="current-status-label"> Current Status </label> 
                     {renderStatusDropdown()}
                 </div>

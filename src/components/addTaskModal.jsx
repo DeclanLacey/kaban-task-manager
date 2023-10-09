@@ -1,19 +1,15 @@
 import React, { useState } from "react";
 
+let count = 0
 let subtaskElements = []
 let subtaskNames = {
 
 }
 
-let count = 0
-
 function AddTaskModal(props) {
 
     const [subtaskCount, setSubtaskCount] = useState(0)
-
     let currentData = props.currentBoardData
-
-
 
     function renderColumnOptions() {
         let columnNameOptions = []
@@ -35,7 +31,6 @@ function AddTaskModal(props) {
     function addNewSubtask() {
         count++
         buildSubtasks(count)
-
         setSubtaskCount(prevState => prevState + 1)
     }
 
@@ -58,71 +53,90 @@ function AddTaskModal(props) {
 
     function handleTaskSubmit(event) {
         event.preventDefault()
-        const subtaskArray = []
-        let selectedColumn = event.target.status.value
-        
-        for (let i = 0; i < subtaskCount; i++) {
-            subtaskArray.push({
-                "title": subtaskNames[`subtask${i + 1}`],
-                "isCompleted": false
-            })
+        let taskNames = []
+        let subtaskNamesArray = []
+        let subtaskNamesKeys = Object.keys(subtaskNames)
+
+        for (let i = 0; i < props.allTasks.length; i++) {
+            taskNames.push(props.allTasks[i].title)
         }
 
-        props.setTaskData(prevState => {
-            return {
-                boards: prevState.boards.map((board, index) => {
-                    if (board.name === currentData.name) {
-                        return  {
-                            name: currentData.name,
-                            columns: currentData.columns.map((column, columnIndex) => {
-                                if (column.name === selectedColumn && prevState.boards[index].columns[columnIndex].tasks != undefined) {
-                                    return {
-                                        name: column.name,
-                                        tasks: 
-                                        [
-                                            ...prevState.boards[index].columns[columnIndex].tasks,
-                                            {
-                                                title: event.target.title.value,
-                                                description: event.target.desc.value,
-                                                status: event.target.status.value,
-                                                subtasks: subtaskArray
-                                            }
-                                        ]
-                                        
-                                    }
-                                }else if (column.name === selectedColumn && prevState.boards[index].columns[columnIndex].tasks === undefined) {
-                                    return {
-                                        name: column.name,
-                                        tasks: 
-                                        [
-                                            {
-                                                title: event.target.title.value,
-                                                description: event.target.desc.value,
-                                                status: event.target.status.value,
-                                                subtasks: subtaskArray
-                                            }
-                                        ]
-                                        
-                                    }
-                                }else {
-                                    return column
-                                }
-                            })
-                        }
-                        
-                    }else {
-                        return board
-                    }
-               })
+        subtaskNamesKeys.forEach((subtask) => subtaskNamesArray.push(subtaskNames[subtask]))
+        function checkIfDuplicateSubtaskExists() {
+            return new Set(subtaskNamesArray).size !== subtaskNamesArray.length
+        }
+      
+        if (taskNames.includes(event.target.title.value)) {
+            alert(`${event.target.title.value} already exists as a task. Please Choose a different name.`)
+        }else if(checkIfDuplicateSubtaskExists() === true) {
+            alert(`Two subtasks with the same name cannot exist.`)
+        }else {
+            let subtaskArray = []
+            let selectedColumn = event.target.status.value
+            
+            console.log(subtaskNames)
+            for (let i = 0; i < subtaskCount; i++) {
+                subtaskArray.push({
+                    "title": subtaskNames[`subtask${i + 1}`],
+                    "isCompleted": false
+                })
             }
-        })
+        
+    
+            props.setTaskData(prevState => {
+                return {
+                    boards: prevState.boards.map((board, index) => {
+                        if (board.name === currentData.name) {
+                            return  {
+                                name: currentData.name,
+                                columns: currentData.columns.map((column, columnIndex) => {
+                                    if (column.name === selectedColumn && prevState.boards[index].columns[columnIndex].tasks != undefined) {
+                                        // console.log(subtaskArray)
+                                        return {
+                                            name: column.name,
+                                            tasks: 
+                                            [
+                                                ...prevState.boards[index].columns[columnIndex].tasks,
+                                                {
+                                                    title: event.target.title.value,
+                                                    description: event.target.desc.value,
+                                                    status: event.target.status.value,
+                                                    subtasks: subtaskArray
+                                                }
+                                            ]
+                                        }
+                                    }else if (column.name === selectedColumn && prevState.boards[index].columns[columnIndex].tasks === undefined) {
+                                        // console.log(subtaskArray)
 
-        subtaskElements = []
-        subtaskNames = {}
-        props.setAddTaskOpen(false)
+                                        return {
+                                            name: column.name,
+                                            tasks: 
+                                            [
+                                                {
+                                                    title: event.target.title.value,
+                                                    description: event.target.desc.value,
+                                                    status: event.target.status.value,
+                                                    subtasks: subtaskArray
+                                                }
+                                            ]
+                                        }
+                                    }else {
+                                        return column
+                                    }
+                                })
+                            }
+                        }else {
+                            return board
+                        }
+                    })
+                }
+            })
+            subtaskElements = []
+            subtaskNames = {}
+            props.setAddTaskOpen(false)
+            count = 0
+        }
     }
-
-
 
     return (
         <div className="add-task-modal">
@@ -163,57 +177,3 @@ function AddTaskModal(props) {
 }
 
 export default AddTaskModal
-
-
-// tasks: [
-//     {
-//         title: event.target.title.value,
-//         description: event.target.desc.value,
-//         status: event.target.status.value,
-//         subtasks: [
-//           {
-//             "title": "Sign up page",
-//             "isCompleted": true
-//           },
-//           {
-//             "title": "Sign in page",
-//             "isCompleted": false
-//           },
-//           {
-//             "title": "Welcome page",
-//             "isCompleted": false
-//           }
-//         ]
-//       }
-// ]
-
-
-
-// ...prevState,
-//                             columns: board.map((column) => {
-//                                 if (column.name === event.target.status.value) {
-//                                     return {
-//                                         tasks: [
-//                                             {
-//                                                 title: event.target.title.value,
-//                                                 description: event.target.desc.value,
-//                                                 status: event.target.status.value,
-//                                                 subtasks: [
-//                                                   {
-//                                                     "title": "Sign up page",
-//                                                     "isCompleted": true
-//                                                   },
-//                                                   {
-//                                                     "title": "Sign in page",
-//                                                     "isCompleted": false
-//                                                   },
-//                                                   {
-//                                                     "title": "Welcome page",
-//                                                     "isCompleted": false
-//                                                   }
-//                                                 ]
-//                                               }
-//                                         ]
-//                                     }
-//                                 }
-//                             })

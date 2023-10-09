@@ -11,27 +11,8 @@ function TaskDataContextProvider(props) {
               "columns": [
                 {
                   "name": "Todo",
-                  "tasks": [
-                    {
-                      "title": "Build UI for onboarding flow",
-                      "description": "This is a test description",
-                      "status": "Todo",
-                      "subtasks": [
-                        {
-                          "title": "Sign up page",
-                          "isCompleted": true
-                        },
-                        {
-                          "title": "Sign in page",
-                          "isCompleted": false
-                        },
-                        {
-                          "title": "Welcome page",
-                          "isCompleted": false
-                        }
-                      ]
-                    }
-                  ]
+                  
+                  
                 },
                 {
                   "name": "Doing"
@@ -73,3 +54,26 @@ function TaskDataContextProvider(props) {
 }
 
 export {TaskDataContextProvider, TaskDataContext}
+
+
+// "tasks": [
+//   {
+//     "title": "Build UI for onboarding flow",
+//     "description": "This is a test description",
+//     "status": "Todo",
+//     "subtasks": [
+//       {
+//         "title": "Sign up page",
+//         "isCompleted": true
+//       },
+//       {
+//         "title": "Sign in page",
+//         "isCompleted": false
+//       },
+//       {
+//         "title": "Welcome page",
+//         "isCompleted": false
+//       }
+//     ]
+//   }
+// ]

@@ -419,14 +419,13 @@ button {
     z-index: 1000;
     position: absolute;
     opacity: .5;
-    
 }
 
 .desc-box {
     max-width: 100%;
     min-width: 100%;
     min-height: 112px;
-    max-height: 300px;
+    max-height: 200px;
 }
 
 .modal-content {
@@ -590,10 +589,10 @@ button {
 
 
 /* ////////////////////////////////////////////////////////// */
-/* ///// Edit Delete Board Pop Up Modal Styling ///////////// */
+/* ///// Edit Delete Pop Up Modal Styling ///////////// */
 /* ///////////////////////////////////////////////////////// */
 
-.edit-delete-board-modal {
+.choose-edit-delete-modal {
     background-color: white;
     width: 192px;
     height: 94px;
@@ -605,11 +604,19 @@ button {
     padding: 16px;
     box-shadow: 0px 10px 20px 0px rgba(54, 78, 126, 0.25);
     border-radius: 8px;
+}
+
+.edit-delete-board-modal {
     top: 55px;
     right: 20px;
 }
 
-.edit-board-choice {
+.edit-delete-task-modal {
+    top: 60px;
+    right: -60px;
+}
+
+.edit-choice {
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
@@ -617,11 +624,11 @@ button {
     color: #828FA3;
 }
 
-.edit-board-choice:hover {
+.edit-choice:hover {
     cursor: pointer;
 }
 
-.delete-board-choice {
+.delete-choice {
     font-size: 13px;
     font-style: normal;
     font-weight: 500;
@@ -629,7 +636,7 @@ button {
     color: #EA5555;
 }
 
-.delete-board-choice:hover {
+.delete-choice:hover {
     cursor: pointer;
 }
 
