@@ -390,7 +390,7 @@ button {
 .column-title-circle {
     width: 15px;
     height: 14px;
-    background-color: #49C4E5;;
+    background-color: #49C4E5;
     border-radius: 100px;
     margin-right: 10px;
 }
@@ -402,9 +402,6 @@ button {
 .task-subtask-title:hover {
     pointer-events: none;
 }
-
-
-
 
 
 /* ///////////////////////////////////////////////////////////// */

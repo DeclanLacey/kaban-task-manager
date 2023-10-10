@@ -43,9 +43,6 @@ function App() {
         setMenuOpen(prevState => !prevState)
     }
 
-    // console.log(taskData)
-
-
     //////////////// THE LAYOUT BREAKS WHEN THESE ARE CALLED
     /// This may change (call these functions when the button is clicked?)
     // if (menuOpen) {
@@ -235,7 +232,13 @@ function App() {
                     }
                     {
                         deleteTaskOpen ? 
-                            <DeleteTaskModal />
+                            <DeleteTaskModal 
+                            editTaskSelectedTaskData={editTaskSelectedTaskData}
+                            setTaskData={setTaskData}
+                            currentBoardData={currentBoardData}
+                            setDeleteTaskOpen={setDeleteTaskOpen}
+
+                            />
                         :
                             <></>
                     } 

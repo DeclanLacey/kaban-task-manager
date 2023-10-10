@@ -6,6 +6,7 @@ function EditDeleteTaskModal(props) {
         props.setDeleteTaskOpen(true)
         props.setViewTaskOpen(false)
         props.setEditDeleteTaskOpen(false)
+        props.setEditTaskSelectedTaskData(props.selectedTaskData)
     }
 
     function handleEditTaskClick() {
