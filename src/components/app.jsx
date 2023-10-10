@@ -43,6 +43,9 @@ function App() {
         setMenuOpen(prevState => !prevState)
     }
 
+    // console.log(taskData)
+
+
     //////////////// THE LAYOUT BREAKS WHEN THESE ARE CALLED
     /// This may change (call these functions when the button is clicked?)
     // if (menuOpen) {
@@ -76,6 +79,7 @@ function App() {
     function closeEditDeleteBoardModal() {
         setEditDeleteBoardOpen(false)
     }
+
 
 
     function renderBoardColumns() {
@@ -221,6 +225,10 @@ function App() {
                             <EditTaskModal 
                                 editTaskSelectedTaskData={editTaskSelectedTaskData}
                                 currentBoardData={currentBoardData}
+                                setTaskData={setTaskData}
+                                taskData={taskData}
+                                setEditTaskOpen={setEditTaskOpen}
+                                allTasks={allTasks}
                             />
                         :
                             <></>

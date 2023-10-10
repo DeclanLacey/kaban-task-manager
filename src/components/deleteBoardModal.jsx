@@ -10,29 +10,38 @@ function DeleteBoardModal(props) {
 
     function handleDeleteBtnClick() {
         const currentData = props.taskData
-        let currentBoardIndex
-        let nextCurrentBoardIndex
-        let remainingBoards = props.taskData.boards.filter((item) => item.name != boardName)
-
-        for (let i = 0; i < currentData.boards.length; i++) {
-            if (currentData.boards[i].name === boardName) {
-                currentBoardIndex = i
-            }
-        }
-
-        props.setTaskData( prevState => {
-            return {boards: remainingBoards}
-        })
-
-        if (currentData.boards[currentBoardIndex + 1] === undefined) {
-            nextCurrentBoardIndex = currentBoardIndex - 1
-            props.setCurrentBoard(currentData.boards[nextCurrentBoardIndex].name)
+        if (currentData.boards.length === 1) {
+            alert(`Must have at least one board`)
         }else {
-            nextCurrentBoardIndex = currentBoardIndex + 1
-            props.setCurrentBoard(currentData.boards[nextCurrentBoardIndex].name)
+            let currentBoardIndex
+            let nextCurrentBoardIndex
+            let remainingBoards = props.taskData.boards.filter((item) => item.name != boardName)
+    
+            for (let i = 0; i < currentData.boards.length; i++) {
+                if (currentData.boards[i].name === boardName) {
+                    currentBoardIndex = i
+                }
+            }
+    
+            props.setTaskData( prevState => {
+                return {boards: remainingBoards}
+            })
+    
+            if (currentData.boards[currentBoardIndex + 1] === undefined) {
+             
+                nextCurrentBoardIndex = currentBoardIndex - 1
+                props.setCurrentBoard(currentData.boards[nextCurrentBoardIndex].name)
+                
+            }else {
+    
+                nextCurrentBoardIndex = currentBoardIndex + 1
+                props.setCurrentBoard(currentData.boards[nextCurrentBoardIndex].name)
+            
+            }
+            
+            props.setDeleteBoardOpen(false)
+    
         }
-        
-        props.setDeleteBoardOpen(false)
 
     }
 

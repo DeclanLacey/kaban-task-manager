@@ -74,7 +74,6 @@ function AddTaskModal(props) {
             let subtaskArray = []
             let selectedColumn = event.target.status.value
             
-            console.log(subtaskNames)
             for (let i = 0; i < subtaskCount; i++) {
                 subtaskArray.push({
                     "title": subtaskNames[`subtask${i + 1}`],
@@ -91,7 +90,6 @@ function AddTaskModal(props) {
                                 name: currentData.name,
                                 columns: currentData.columns.map((column, columnIndex) => {
                                     if (column.name === selectedColumn && prevState.boards[index].columns[columnIndex].tasks != undefined) {
-                                        // console.log(subtaskArray)
                                         return {
                                             name: column.name,
                                             tasks: 
@@ -106,8 +104,6 @@ function AddTaskModal(props) {
                                             ]
                                         }
                                     }else if (column.name === selectedColumn && prevState.boards[index].columns[columnIndex].tasks === undefined) {
-                                        // console.log(subtaskArray)
-
                                         return {
                                             name: column.name,
                                             tasks: 
