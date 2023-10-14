@@ -4,43 +4,26 @@ const TaskDataContext = React.createContext()
 
 function TaskDataContextProvider(props) {
 
-    const [taskData, setTaskData] = useState({
-        "boards": [
-            {
-              "name": "General Tasks",
-              "columns": [
-                {
-                  "name": "Todo",
-                  
-                  
-                },
-                {
-                  "name": "Doing"
-                  
-                },
-                {
-                  "name": "Doing Two"
-                  
-                }
-              ]
-            },
-            {
-              "name": "General Tasks 2"
-            },
-            {
-              "name": "General Tasks 3",
-              "columns": [
-                {
-                  "name": "Todo"
-                },
-                {
-                  "name": "Done"
-                }
-              ]
-            }
-          ]
-    })
+    let taskDataIntialValue
 
+    localStorage.clear()
+    if (localStorage.getItem("Task Data") !== null) {
+        taskDataIntialValue = JSON.parse(localStorage.getItem("Task Data"))
+    }else {
+        taskDataIntialValue = {
+            "boards": [
+                {
+                  "name": "General Tasks"
+                }
+            ]
+        }
+    }
+
+    const [taskData, setTaskData] = useState(taskDataIntialValue)
+
+    useEffect(() => {
+        localStorage.setItem("Task Data", JSON.stringify(taskData))
+    }, [taskData])
 
     const [currentBoard, setCurrentBoard] = useState(taskData.boards[0].name)
     
@@ -54,6 +37,8 @@ function TaskDataContextProvider(props) {
 }
 
 export {TaskDataContextProvider, TaskDataContext}
+
+
 
 
 // "tasks": [

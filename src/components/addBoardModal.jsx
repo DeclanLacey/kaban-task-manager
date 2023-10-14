@@ -47,12 +47,25 @@ function AddBoardModal(props) {
         event.preventDefault()
         let boardNames = []
 
+        // placing board names in an array
         for (let i = 0; i < taskData.boards.length; i++) {
             boardNames.push(taskData.boards[i].name)
         }
 
+        //// Putting column names in an array
+        let newColumnNames = []
+        for (let i = 1; i < columnCount + 1; i++) {
+            newColumnNames.push(columnNames[`boardColumn${i}`])
+        }
+
+        function hasDuplicates(array) {
+            return (new Set(array)).size !== array.length;
+        }
+
         if (boardNames.includes(event.target.boardName.value)) {
             alert(`${event.target.boardName.value} already exists as a board. Please Choose a different name.`)
+        }else if(hasDuplicates(newColumnNames) === true) {
+            alert("There cannot be two columns with the same name. Please choose a different name.")
         }else {
             let newColumns = []
 
