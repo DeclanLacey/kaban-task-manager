@@ -1,11 +1,14 @@
 import React from "react";
+import * as scroll from "./enableDisableScroll"
 
 function DeleteBoardModal(props) {
 
+    scroll.disableScroll()
     const boardName = props.currentBoard
 
-    function handleCancelBtnClick() {
+    function closeDeleteBoard() {
         props.setDeleteBoardOpen(false)
+        scroll.enableScroll()
     }
 
     function handleDeleteBtnClick() {
@@ -38,9 +41,8 @@ function DeleteBoardModal(props) {
                 props.setCurrentBoard(currentData.boards[nextCurrentBoardIndex].name)
             
             }
-            
-            props.setDeleteBoardOpen(false)
     
+            closeDeleteBoard()
         }
 
     }
@@ -52,7 +54,7 @@ function DeleteBoardModal(props) {
                 <h1 className="delete-title"> Delete this board?</h1>
                 <p className="delete-text"> Are you sure you want to delete the ‘{boardName}’ board? This action will remove all columns and tasks and cannot be reversed. </p>
                 <button className="delete-btn" onClick={handleDeleteBtnClick}> Delete </button>
-                <button className="cancel-btn" onClick={handleCancelBtnClick}> Cancel </button>
+                <button className="cancel-btn" onClick={closeDeleteBoard}> Cancel </button>
             </div>
         </div>
     )

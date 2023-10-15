@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-
-
+import * as scroll from "./enableDisableScroll"
 
 function EditBoardModal(props) {
     
+    scroll.disableScroll()
     let columnElements = []
     let initalBoardData = props.currentBoardData
     const [boardColumns, setBoardColumns] = useState(initalBoardData.columns)
@@ -16,7 +16,7 @@ function EditBoardModal(props) {
             for (let i = 0; i < boardColumns.length; i++) {
                 columnElements.push(
                     <div className="input-with-x-container" key={i} id={i}> 
-                        <input className="subtask-input" type="text" onChange={handleColumnChange} value={boardColumns[i].name} />
+                        <input required className="subtask-input" type="text" onChange={handleColumnChange} value={boardColumns[i].name} />
                         <img className="subtask-delete-btn-img" onClick={deleteColumnElement} src="src\assets\icon-cross.svg"/>
                     </div> 
                 )
@@ -66,6 +66,7 @@ function EditBoardModal(props) {
 
     function closeEditBoardModal() {
         props.setEditBoardOpen(false)
+        scroll.enableScroll()
     }
 
     function handleSubmit(event) {

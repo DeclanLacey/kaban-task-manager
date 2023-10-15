@@ -1,9 +1,9 @@
 import React from "react";
+import * as scroll from "./enableDisableScroll"
 import { useState, useContext } from "react";
 import { TaskDataContext } from "./taskDataContext";
 import MenuModal from "./menuModal";
 import TaskColumn from "./taskColumn";
-import useScrollBlock from "./blockScroll"
 import ViewTaskModal from "./viewTaskModal";
 import AddTaskModal from "./addTaskModal";
 import EditTaskModal from "./editTaskModal";
@@ -12,14 +12,14 @@ import EditBoardModal from "./editBoardModal";
 import DeleteBoardModal from "./deleteBoardModal";
 import DeleteTaskModal from "./deleteTaskModal";
 import EditDeleteBoardModal from "./editDeleteBoardModal";
-import EditDeleteTaskModal from "./editDeleteTaskModal";
+
+
 
 function App() {
 
     let currentBoardData
     let allTasks = []
 
-    const [blockScroll, allowScroll] = useScrollBlock()
     const [menuOpen, setMenuOpen] = useState(false)
     const [addBoardOpen, setAddBoardOpen] = useState(false)
     const [editBoardOpen, setEditBoardOpen] = useState(false)
@@ -34,14 +34,18 @@ function App() {
     const [currentColumnData, setCurrentColumnData] = useState()
     const [editTaskSelectedTaskData, setEditTaskSelectedTaskData] = useState()
 
-    const {data, board} = useContext(TaskDataContext)
+    const {data, board, dark} = useContext(TaskDataContext)
     const [taskData, setTaskData] = data
     const [currentBoard, setCurrentBoard] = board
+    const [darkMode, setDarkMode] = dark
 
     function changeMenuStatus() {
         if (window.innerWidth >= 750) {
             /// Do not change menuOpen state
         }else {
+            if(menuOpen) {
+                scroll.enableScroll()
+            }
             setMenuOpen(prevState => !prevState)
         }
     }
@@ -50,14 +54,13 @@ function App() {
         setMenuOpen(true)
     }
 
-    //////////////// THE LAYOUT BREAKS WHEN THESE ARE CALLED
-    /// This may change (call these functions when the button is clicked?)
-    // if (menuOpen) {
-    //     blockScroll()
-    // }else if (menuOpen === false) {
-    //     allowScroll()
-    // }
-
+    window.addEventListener("resize", () => {
+        if(window.innerWidth >= 750) {
+            scroll.enableScroll()
+        }else if (window.innerWidth <= 750 && menuOpen) {
+            scroll.disableScroll()
+        }
+    })
 
     function getCurrentBoardData() {
         for (let i = 0; i < taskData.boards.length; i++) {
@@ -103,18 +106,6 @@ function App() {
 
     getCurrentBoardData()
 
-    addEventListener("resize", () => {
-        var buttonText
-        
-        if (window.innerWidth >= 750) {
-            buttonText = "+ Add New Task"
-        }else {
-            buttonText = "+"
-        }
-
-    });
-
-
     return (
         <div className="app-container" >
             {
@@ -122,6 +113,7 @@ function App() {
                     <MenuModal 
                         setMenuOpen={setMenuOpen}
                         setAddBoardOpen={setAddBoardOpen}
+                        menuOpen={menuOpen}
                     />
                 :
                     <></>
@@ -287,6 +279,12 @@ function App() {
                                 <></>
                             :
                                 renderBoardColumns()
+                        }
+                        {
+                            currentBoardData.columns != undefined ?
+                                <button className="add-new-column-btn" onClick={() => {setEditBoardOpen(true)}}> + New Column </button>
+                            :
+                                <></>
                         }
                     </div>
 

@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { TaskDataContext } from "./taskDataContext";
+import * as scroll from "./enableDisableScroll"
 
 let count = 0
 const columnElements = []
@@ -9,12 +10,14 @@ const columnNames = {
 
 function AddBoardModal(props) {
 
+    scroll.disableScroll()
     const {data, board} = React.useContext(TaskDataContext)
     const [taskData, setTaskData] = data
     const [columnCount, setColumnCount] = useState(0)
 
     function closeAddBoardModal() {
         props.setAddBoardOpen(false)
+        scroll.enableScroll()
     }
 
     function buildColumns(index) {
@@ -101,7 +104,7 @@ function AddBoardModal(props) {
                 })
             }
             props.setCurrentBoard(event.target.boardName.value)
-            props.setAddBoardOpen(false)
+            closeAddBoardModal()
         }
     }
 

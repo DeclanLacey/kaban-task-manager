@@ -1,16 +1,19 @@
 import React from "react";
-import { useState, useContext } from "react";
 import { TaskDataContext } from "./taskDataContext";
-import Task from "./task";
+import * as scroll from "./enableDisableScroll"
 
-function MenuModal(props) {
-    const {data, board} = React.useContext(TaskDataContext)
+function MenuModal(props) { 
+   
+    const {data, board, dark} = React.useContext(TaskDataContext)
     const [taskData, setTaskData] = data
     const [currentBoard, setCurrentBoard] = board
+    const [darkMode, setDarkMode] = dark
+
+    
 
     function changeBoard(event) {
         setCurrentBoard(event.target.textContent)
-        props.setMenuOpen(false)
+        closeMenu()
     }
 
     function addNewBoard() {
@@ -20,8 +23,10 @@ function MenuModal(props) {
 
     function closeMenu() {
         props.setMenuOpen(false)
+        scroll.enableScroll()
     }
-  
+
+    
 
     return (
         <div className="menu-modal">
@@ -57,7 +62,7 @@ function MenuModal(props) {
                 <div className="dark-light-toggle-container">
                     <img className="dark-light-toggle-svg" src="src\assets\icon-light-theme.svg"/>
                     <label className="switch">
-                        <input type="checkbox" />
+                        <input onChange={() => setDarkMode(prevState => !prevState)} checked={darkMode} type="checkbox" />
                         <span className="slider round"></span>
                     </label>
                     

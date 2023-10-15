@@ -1,6 +1,6 @@
 import React, {useState} from "react";
+import * as scroll from "./enableDisableScroll"
 
-// let count = 0
 let subtaskNames = {
 
 }
@@ -13,6 +13,7 @@ let initalSelectedTaskData
 
 function EditTaskModal(props) {
     
+    scroll.disableScroll()
     let currentData = props.currentBoardData
     const [subtaskCount, setSubtaskCount] = useState()
     
@@ -45,10 +46,6 @@ function EditTaskModal(props) {
         }
         setCurrentTaskData(selectedTaskData)
     }
-
-    // console.log(selectedTaskData)
-
-
 
     function removeSubtaskInput(event) {
         selectedTaskData = {
@@ -183,6 +180,7 @@ function EditTaskModal(props) {
     
             selectedTaskData = undefined
             props.setEditTaskOpen(false)
+            scroll.enableScroll()
         }
     }
 

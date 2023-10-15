@@ -1,11 +1,13 @@
 import React, {useContext, useEffect, useState} from "react";
 import EditDeleteTaskModal from "./editDeleteTaskModal";
 import { TaskDataContext } from "./taskDataContext";
+import * as scroll from "./enableDisableScroll"
 
 let selectedTaskData
 
 function ViewTaskModal(props) {
 
+    scroll.disableScroll()
     let currentColumnDataCopy = props.currentColumnData
     const {data, board} = useContext(TaskDataContext)
     const [taskData, setTaskData] = data
@@ -185,13 +187,12 @@ function ViewTaskModal(props) {
     function closeViewTaskModal() {
         props.setViewTaskOpen(false)
         props.setEditDeleteTaskOpen(false)
-        
+        scroll.enableScroll()
     }
 
     renderSubtasks()
     calculateCompletedSubtaskcount()
-    // console.log(selectedTaskData)
-
+    
     return (
         <div className="view-task-modal">
             <div className="modal-page-cover" onClick={closeViewTaskModal}> </div>

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react"
+import data from "/src/data.json"
 
 const TaskDataContext = React.createContext()
 
@@ -10,13 +11,7 @@ function TaskDataContextProvider(props) {
     if (localStorage.getItem("Task Data") !== null) {
         taskDataIntialValue = JSON.parse(localStorage.getItem("Task Data"))
     }else {
-        taskDataIntialValue = {
-            "boards": [
-                {
-                  "name": "General Tasks"
-                }
-            ]
-        }
+        taskDataIntialValue = data
     }
 
     const [taskData, setTaskData] = useState(taskDataIntialValue)
@@ -26,10 +21,10 @@ function TaskDataContextProvider(props) {
     }, [taskData])
 
     const [currentBoard, setCurrentBoard] = useState(taskData.boards[0].name)
-    
+    const [darkMode, setDarkMode] = useState(false)
 
     return(
-        <TaskDataContext.Provider value={{data: [taskData, setTaskData], board: [currentBoard, setCurrentBoard]}}> 
+        <TaskDataContext.Provider value={{data: [taskData, setTaskData], board: [currentBoard, setCurrentBoard], dark: [darkMode, setDarkMode]}}> 
             {props.children}
         </TaskDataContext.Provider>  
 

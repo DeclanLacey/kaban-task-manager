@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import * as scroll from "./enableDisableScroll"
 
 let count = 0
 let subtaskElements = []
@@ -8,6 +9,7 @@ let subtaskNames = {
 
 function AddTaskModal(props) {
 
+    scroll.disableScroll()
     const [subtaskCount, setSubtaskCount] = useState(0)
     let currentData = props.currentBoardData
 
@@ -49,6 +51,7 @@ function AddTaskModal(props) {
         subtaskElements = []
         subtaskNames = {}
         props.setAddTaskOpen(false)
+        scroll.enableScroll()
     }
 
     function handleTaskSubmit(event) {
@@ -130,6 +133,7 @@ function AddTaskModal(props) {
             subtaskElements = []
             subtaskNames = {}
             props.setAddTaskOpen(false)
+            scroll.enableScroll()
             count = 0
         }
     }

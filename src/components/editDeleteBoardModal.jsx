@@ -1,6 +1,10 @@
 import React from "react";
+import * as scroll from "./enableDisableScroll"
+
 
 function EditDeleteBoardModal(props) {
+
+    scroll.disableScroll()
 
     function handleDeleteBoardClick() {
         props.setDeleteBoardOpen(true)

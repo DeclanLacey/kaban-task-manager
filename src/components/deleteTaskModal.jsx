@@ -1,16 +1,18 @@
 import React from "react";
+import * as scroll from "./enableDisableScroll"
 
 function DeleteTaskModal(props) {
 
+    scroll.disableScroll()
     const selectedTaskData = props.editTaskSelectedTaskData
 
-
-    function handleCancelClick() {
+    function closeDeleteTaskModal() {
         props.setDeleteTaskOpen(false)
+        scroll.enableScroll()
     }
 
     function handleDeleteClick() {
-        props.setDeleteTaskOpen(false)
+        closeDeleteTaskModal()
 
         props.setTaskData(prevState => {
             return {
@@ -44,7 +46,7 @@ function DeleteTaskModal(props) {
                 <h1 className="delete-title"> Delete this task?</h1>
                 <p className="delete-text"> Are you sure you want to delete the task ‘{selectedTaskData.title}’ and its subtasks? This action cannot be reversed. </p>
                 <button className="delete-btn" onClick={handleDeleteClick}> Delete </button>
-                <button className="cancel-btn" onClick={handleCancelClick}> Cancel </button>
+                <button className="cancel-btn" onClick={closeDeleteTaskModal}> Cancel </button>
             </div>
         </div>
     )
