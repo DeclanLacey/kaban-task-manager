@@ -13,13 +13,13 @@ import DeleteBoardModal from "./deleteBoardModal";
 import DeleteTaskModal from "./deleteTaskModal";
 import EditDeleteBoardModal from "./editDeleteBoardModal";
 
-
-
 function App() {
 
     let currentBoardData
     let allTasks = []
+    let columnColors = ["#49C4E5", "#8471F2", "#67E2AE", "#EA5555", "#A8A4FF", "#FF9898", "#E4EBFA"]
 
+    //// State declerations for knowing when a certain modal is open or not
     const [menuOpen, setMenuOpen] = useState(false)
     const [addBoardOpen, setAddBoardOpen] = useState(false)
     const [editBoardOpen, setEditBoardOpen] = useState(false)
@@ -30,15 +30,28 @@ function App() {
     const [viewTaskOpen, setViewTaskOpen] = useState(false)
     const [editTaskOpen, setEditTaskOpen] = useState(false)
     const [deleteTaskOpen, setDeleteTaskOpen] = useState(false)
+
+    /// State declerations for certain peices of data
     const [currentTaskData, setCurrentTaskData] = useState()
     const [currentColumnData, setCurrentColumnData] = useState()
     const [editTaskSelectedTaskData, setEditTaskSelectedTaskData] = useState()
-
     const {data, board, dark} = useContext(TaskDataContext)
     const [taskData, setTaskData] = data
     const [currentBoard, setCurrentBoard] = board
     const [darkMode, setDarkMode] = dark
 
+    //// Checking to see if scrolling should be allowed or not when the menu is open
+    window.addEventListener("resize", () => {
+        if(window.innerWidth >= 750) {
+            scroll.enableScroll()
+        }else if (window.innerWidth <= 750 && menuOpen) {
+            scroll.disableScroll()
+        }else if (!menuOpen) {
+            scroll.enableScroll()
+        }
+    })
+
+    //// Opens or closes the menu when clicking on the name, only on smaller screens
     function changeMenuStatus() {
         if (window.innerWidth >= 750) {
             /// Do not change menuOpen state
@@ -53,14 +66,6 @@ function App() {
     function openMenu() {
         setMenuOpen(true)
     }
-
-    window.addEventListener("resize", () => {
-        if(window.innerWidth >= 750) {
-            scroll.enableScroll()
-        }else if (window.innerWidth <= 750 && menuOpen) {
-            scroll.disableScroll()
-        }
-    })
 
     function getCurrentBoardData() {
         for (let i = 0; i < taskData.boards.length; i++) {
@@ -99,12 +104,28 @@ function App() {
 
         let columns = []
         for (let i = 0; i < currentBoardData.columns.length; i++) {
-            columns.push( <TaskColumn setCurrentColumnData={setCurrentColumnData} setCurrentTaskData={setCurrentTaskData} allTasks={allTasks}  setViewTaskOpen={setViewTaskOpen} currentBoardDataColumn={currentBoardData.columns[i]} key={i} />)
+            let columnColor 
+            if(columnColors[i] === undefined) {
+                columnColor = columnColors[0]
+            }else {
+                columnColor =columnColors[i]
+            }
+            columns.push( <TaskColumn columnColor={columnColor} setCurrentColumnData={setCurrentColumnData} setCurrentTaskData={setCurrentTaskData} allTasks={allTasks}  setViewTaskOpen={setViewTaskOpen} currentBoardDataColumn={currentBoardData.columns[i]} key={i} />)
         }
         return columns
     }
 
     getCurrentBoardData()
+
+    //// Deciding class names for column container 
+    let columnContainerClassNames
+    if (menuOpen && darkMode) {
+        columnContainerClassNames = "menu-open very-dark-grey-background text-color-white"
+    }else if (menuOpen && !darkMode) {
+        columnContainerClassNames = "menu-open"
+    }else if (!menuOpen && darkMode) {
+        columnContainerClassNames = "very-dark-grey-background text-color-white"
+    }
 
     return (
         <div className="app-container" >
@@ -129,9 +150,14 @@ function App() {
                 </button>
             }
             <div >
-                <header className="header-container"> 
-                    <div className="large-logo-container">
-                        <img className="large-screen-logo" src="src\assets\logo-dark.svg" />
+                <header className={darkMode ? "header-container dark-grey-background text-color-white" : "header-container"} style={darkMode ? {border: "1px solid #3E3F4E"} : {}}> 
+                    <div className="large-logo-container" style={darkMode ? {borderRight: "1px solid #3E3F4E", marginLeft: "-14px"} : {}}>
+                        {
+                            darkMode ?
+                                <img className="large-screen-logo" src="src\assets\logo-light.svg" />
+                            :
+                                <img className="large-screen-logo" src="src\assets\logo-dark.svg" />
+                        }
                     </div>
                     <div className="header-inner-container flex-left">
                         <img className="mobile-svg-logo" src="src\assets\logo-mobile.svg" />
@@ -162,7 +188,7 @@ function App() {
                 <main className="board-container" onClick={closeEditDeleteBoardModal}>
 
                     {
-                        currentBoardData.columns === undefined ?
+                        currentBoardData.columns === undefined || !currentBoardData.columns.length ?
                             <div className={menuOpen ? "empty-board-message-container empty-board-menu-open" : "empty-board-message-container"}>
                                 <h2 className="empty-board-message"> This board is empty. Create a new column to get started. </h2>
                                 <button className="empty-board-add-column-btn" onClick={changeEditBoardOpenStatus}>+  Add New Column</button>
@@ -170,7 +196,6 @@ function App() {
                         :
                         <></>
                     }
-
                     {
                         editDeleteBoardOpen ?
                             <EditDeleteBoardModal 
@@ -199,6 +224,7 @@ function App() {
                                     setEditBoardOpen={setEditBoardOpen}
                                     setTaskData={setTaskData}
                                     setCurrentBoard={setCurrentBoard}
+                                    setMenuOpen={setMenuOpen}
                                 />
                             :
                                 <></>
@@ -241,6 +267,7 @@ function App() {
                                     setEditTaskOpen={setEditTaskOpen}
                                     setDeleteTaskOpen={setDeleteTaskOpen}
                                     setEditTaskSelectedTaskData={setEditTaskSelectedTaskData}
+                                    setMenuOpen={setMenuOpen}
                                 />
                             :
                                 <></>
@@ -265,15 +292,13 @@ function App() {
                                 setTaskData={setTaskData}
                                 currentBoardData={currentBoardData}
                                 setDeleteTaskOpen={setDeleteTaskOpen}
-
                                 />
                             :
                                 <></>
                         } 
-                        
                     </div>
-
-                    <div className={menuOpen ? "task-columns-container menu-open" : "task-columns-container"}>
+                    
+                    <div className={`task-columns-container ${columnContainerClassNames}`}>
                         {
                             currentBoardData.columns === undefined ?
                                 <></>
@@ -281,19 +306,16 @@ function App() {
                                 renderBoardColumns()
                         }
                         {
-                            currentBoardData.columns != undefined ?
-                                <button className="add-new-column-btn" onClick={() => {setEditBoardOpen(true)}}> + New Column </button>
+                            currentBoardData.columns.length ?
+                                <button className={darkMode ? "add-new-column-btn add-new-column-btn-dark-mode" : "add-new-column-btn"} onClick={() => {setEditBoardOpen(true)}}> + New Column </button>
                             :
                                 <></>
                         }
                     </div>
-
                 </main>
             </div>
-            
         </div>
     )
 }
-
 
 export default App

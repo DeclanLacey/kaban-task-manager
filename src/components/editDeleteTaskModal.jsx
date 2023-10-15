@@ -1,6 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
+import { TaskDataContext } from "./taskDataContext";
 
 function EditDeleteTaskModal(props) {
+
+    const {dark} = useContext(TaskDataContext)
+    const [darkMode, setDarkMode] = dark
 
     function handleDeleteTaskClick() {
         props.setDeleteTaskOpen(true)
@@ -17,7 +21,7 @@ function EditDeleteTaskModal(props) {
     }
   
     return (
-        <div className="choose-edit-delete-modal edit-delete-task-modal">
+        <div className={darkMode ? "choose-edit-delete-modal edit-delete-task-modal dark-grey-background" : "choose-edit-delete-modal edit-delete-task-modal"}>
             <h1 onClick={handleEditTaskClick} className="edit-choice"> Edit Task </h1>
             <h1 onClick={handleDeleteTaskClick} className="delete-choice"> Delete Task</h1>
         </div>

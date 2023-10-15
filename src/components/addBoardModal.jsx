@@ -11,8 +11,9 @@ const columnNames = {
 function AddBoardModal(props) {
 
     scroll.disableScroll()
-    const {data, board} = React.useContext(TaskDataContext)
+    const {data, dark} = React.useContext(TaskDataContext)
     const [taskData, setTaskData] = data
+    const [darkMode, setDarkMode] = dark
     const [columnCount, setColumnCount] = useState(0)
 
     function closeAddBoardModal() {
@@ -23,7 +24,7 @@ function AddBoardModal(props) {
     function buildColumns(index) {
             columnElements.push(
             <div className="input-with-x-container" key={index}> 
-                <input required className="subtask-input" type="text" onChange={handleColumnChange} name={`boardColumn${index}`}/>
+                <input required className={darkMode ? "subtask-input dark-grey-background text-color-white" : "subtask-input"} type="text" onChange={handleColumnChange} name={`boardColumn${index}`}/>
                 <img className="subtask-delete-btn-img"  src="src\assets\icon-cross.svg" onClick={removeColumnInput}/>
             </div>
             )
@@ -61,17 +62,20 @@ function AddBoardModal(props) {
             newColumnNames.push(columnNames[`boardColumn${i}`])
         }
 
+        //// Checking to see if two of the given names for columns are the same
         function hasDuplicates(array) {
             return (new Set(array)).size !== array.length;
         }
 
+        ///// Running checks to see if the column names alreay exist elsewhere in the board, if not then
+        ///// Setting the state with the new data
         if (boardNames.includes(event.target.boardName.value)) {
             alert(`${event.target.boardName.value} already exists as a board. Please Choose a different name.`)
         }else if(hasDuplicates(newColumnNames) === true) {
             alert("There cannot be two columns with the same name. Please choose a different name.")
         }else {
-            let newColumns = []
 
+            let newColumns = []
             for (let i = 0; i < columnCount; i++) {
                 newColumns.push({name: Object.values(columnNames)[i]})
             }
@@ -111,19 +115,19 @@ function AddBoardModal(props) {
     return (
         <div className="add-board-modal">
             <div className="modal-page-cover" onClick={closeAddBoardModal}> </div>
-            <div className="modal-content">
+            <div className={darkMode ? "modal-content dark-grey-background text-color-white" : "modal-content"}>
                 <form onSubmit={handleSubmit}>
                     <h1 className="modal-title"> Add New Board </h1>
                     <div className="modal-input-container">
                         <label className="modal-label"> Board Name </label>
-                        <input className="text-box-normal" type="text" placeholder="e.g. Web Design" name="boardName" required/>
+                        <input maxLength = "30" className={darkMode ? "text-box-normal dark-grey-background text-color-white" : "text-box-normal"} type="text" placeholder="e.g. Web Design" name="boardName" required/>
                     </div>
                     <div className="modal-input-container">
                         <h3 className="modal-label"> Board Columns </h3>
                         <div id="column-input-container">
                             {columnElements}
                         </div>
-                        <button type="button" className="modal-add-new-btn" onClick={addNewColumn}> +Add New Column </button>
+                        <button type="button" className={darkMode ? "modal-add-new-btn white-background-hover" : "modal-add-new-btn"} onClick={addNewColumn}> +Add New Column </button>
                     </div>
                     <button type="submit" className="modal-final-btn"> Create New Board</button>
                 </form>

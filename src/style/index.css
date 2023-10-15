@@ -1,4 +1,3 @@
-
 /* /////////////////////// Generic Styling /////////////////////// */
 
 * {
@@ -15,10 +14,6 @@ img {
 .app-container {
     background-color: #F4F7FD;
     height: 100vh + 10px;
-}
-
-body {
-    background-color: #F4F7FD;
 }
 
 button {
@@ -51,8 +46,6 @@ button {
     align-items: center;
 }
 
-
-
 /* //// Header Dropdown menu styling //// */
 
 .dropdown-menu:hover {
@@ -68,7 +61,6 @@ button {
 
 .mobile-svg-logo {
     width: 24px;
-
 }
 
 .dropdown-menu-arrow {
@@ -90,23 +82,21 @@ button {
     width: 264px;
     height: fit-content;
     background-color: white;
-    position: absolute;
+    position: fixed;
     z-index: 1000;
     top: 80px;
     border-radius: 8px;
-
 }
 
 .menu-modal-page-cover {
     background-color: black;
     width: 100%;
     z-index: 999;
-    position: absolute;
+    position: fixed;
     opacity: .5;
     overflow:auto;
     height: 100vh;
 }
-
 
 .menu-modal-options-container {
     padding-right: 20px;
@@ -124,16 +114,15 @@ button {
     color: #828FA3
 }
 
-
 .menu-modal-option:hover {
     cursor: pointer;
-    background-color: #635FC7;
-    color: white;
+    background-color: rgba(99, 95, 199, .1);
+    color: #635FC7;
 }
 
 .current-board {
     color: white !important;
-    background-color: #635FC7;
+    background-color: #635FC7 !important; 
 }
 
 .menu-modal-create-board {
@@ -204,7 +193,6 @@ button {
     width: 20px;
 }
 
-
 /* The switch - the box around the slider */
 .switch {
     position: relative;
@@ -233,6 +221,11 @@ button {
     background-color: #635FC7;
     -webkit-transition: .4s;
     transition: .4s;
+  }
+  
+  .slider:hover {
+    transition: none;
+    opacity: .5;
   }
   
   .slider:before {
@@ -326,7 +319,6 @@ button {
     color: white;
   }
 
-
 /* //// Header add task and three dot menu styling //// */
 
 .add-task-btn {
@@ -359,8 +351,8 @@ button {
 
 .add-task-btn:hover {
     cursor: pointer;
+    background-color: #A8A4FF;
 }
-
 
 /* /////////////////////////////////////////////////////////////// */
 /* ///////////////////// Board Styling /////////////////////////// */
@@ -384,7 +376,6 @@ button {
     color: #828FA3;
     font-weight: 700;
     font-style: normal;
-
 }
 
 .empty-board-add-column-btn {
@@ -398,8 +389,8 @@ button {
 
 .empty-board-add-column-btn:hover {
     cursor: pointer;
+    background-color: #A8A4FF;
 }
-
 
 /* ///// Task stlying ////// */
 
@@ -410,19 +401,19 @@ button {
     display: flex;
     gap: 25px;
     background-color: #F4F7FD;
-    overflow-y: auto;
     overflow-x: auto;
     min-height: 100vh;
+    overflow-y: hidden;
 }
 
 .task-column {
     min-width: 280px;
 }
 
-
 .task-container {
     width: 280px;
-    height: 88px;
+    height: fit-content;
+    min-height: 88px;
     background-color: white;
     margin-bottom: 20px;
     border-radius: 8px;
@@ -448,6 +439,7 @@ button {
 
 .task-container:hover {
     cursor: pointer;
+    color: #635FC7;
 }
 
 .column-title-container {
@@ -468,8 +460,10 @@ button {
 }
 
 .column-title-circle {
-    width: 15px;
-    height: 14px;
+    height: 15px;
+    width: 20px;
+    max-width: 15px;
+    max-height: 14px;
     background-color: #49C4E5;
     border-radius: 100px;
     margin-right: 10px;
@@ -482,7 +476,6 @@ button {
 .task-subtask-title:hover {
     pointer-events: none;
 }
-
 
 .add-new-column-btn {
     min-width: 280px;
@@ -497,10 +490,13 @@ button {
     margin-bottom: 1%;
 }
 
+.add-new-column-btn:hover {
+    color: #635FC7;
+}
+
 /* ///////////////////////////////////////////////////////////// */
 /* /////////////// Shared Modal Styling /////////////////////// */
 /* //////////////////////////////////////////////////////////// */
-
 
 .modal-page-cover {
     background-color: black;
@@ -548,6 +544,7 @@ button {
 
 .select-menu:hover {
     cursor: pointer;
+    border: 1px solid #635FC7;
 }
 
 .text-box-normal {
@@ -558,22 +555,35 @@ button {
     margin-bottom: 24px;
 }
 
+.text-box-normal:hover {
+    cursor: pointer;
+    border: 1px solid #635FC7;
+}
+
 .text-box-large {
     height: 112px;
     border-radius: 4px;
     border: 1px solid rgba(130, 143, 163, 0.25);
     padding: 12px;
     margin-bottom: 24px;
+}
 
+.text-box-large:hover {
+    cursor: pointer;
+    border: 1px solid #635FC7;
 }
 
 .subtask-input {
     height: 40px;
-    width: 88%;
+    width: 94%;
     border-radius: 4px;
     border: 1px solid rgba(130, 143, 163, 0.25);
     padding: 12px;
+}
 
+.subtask-input:hover {
+    cursor: pointer;
+    border: 1px solid #635FC7;
 }
 
 .modal-title {
@@ -593,7 +603,12 @@ button {
 .subtask-delete-btn-img {
     width: 14.849px;
     height: 14.849px;
+    filter: invert(54%) sepia(17%) saturate(378%) hue-rotate(177deg) brightness(100%) contrast(86%)
 }
+
+.subtask-delete-btn-img:hover {
+   filter: invert(42%) sepia(52%) saturate(4945%) hue-rotate(335deg) brightness(110%) contrast(193%);
+} 
 
 .subtask-delete-btn-img:hover {
     cursor: pointer;
@@ -623,7 +638,10 @@ button {
     font-size: 13px;
     margin-bottom: 20px;
     font-weight: 700;
+}
 
+.modal-add-new-btn:hover {
+    background: rgba(99, 95, 199, 0.25);
 }
 
 .modal-final-btn {
@@ -634,6 +652,15 @@ button {
     width: 100%;
     border: none;
     margin-top: 10px;
+}
+
+.modal-final-btn:hover {
+    background-color: #A8A4FF;
+}
+
+.delete-edit-btns-container {
+    display: flex;
+    flex-direction: column;
 }
 
 .delete-btn {
@@ -648,6 +675,10 @@ button {
     margin-bottom: 15px;
 }
 
+.delete-btn:hover {
+    background-color: #FF9898
+}
+
 .cancel-btn {
     border-radius: 20px;
     background: rgba(99, 95, 199, 0.10);
@@ -657,6 +688,10 @@ button {
     font-size: 13px;
     font-style: normal;
     font-weight: 700;
+}
+
+.cancel-btn:hover {
+    background: rgba(99, 95, 199, 0.25);
 }
 
 .delete-text {
@@ -676,7 +711,6 @@ button {
     color: #EA5555;
     margin-bottom: 20px;
 }
-
 
 /* ////////////////////////////////////////////////////////// */
 /* ///// Edit Delete Pop Up Modal Styling ///////////// */
@@ -699,6 +733,7 @@ button {
 .edit-delete-board-modal {
     top: 55px;
     right: 20px;
+    position: fixed;
 }
 
 .edit-delete-task-modal {
@@ -730,7 +765,6 @@ button {
     cursor: pointer;
 }
 
-
 /* ////////////////////////////////////////////////////////// */
 /* /////////////// Edit Task Modal Styling ////////////////// */
 /* ///////////////////////////////////////////////////////// */
@@ -761,6 +795,7 @@ button {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    margin-left: 10px;
 }
 
 .task-description {
@@ -798,11 +833,16 @@ button {
     border-radius: 5px;
 }
 
+.subtask:hover {
+    background-color: rgba(99, 95, 199, .4);
+    cursor: pointer;
+}
+
 .subtask-checkbox {
     width: 20px;
     height: 20px;
-    background-color: white;
     border: none;
+    padding-right: 100px;
 }
 
 .subtask-checkbox:hover {
@@ -848,12 +888,12 @@ button {
 
 .current-status-select:hover {
     cursor: pointer;
+    border: 1px solid #635FC7;
 }
 
 /* ////////////////////////////////////////////////////////// */
 /* /////////////// Add Task Modal Styling ////////////////// */
 /* ///////////////////////////////////////////////////////// */
-
 
 .add-task-modal {
     display: flex;
@@ -902,6 +942,31 @@ button {
 }
 
 /* ////////////////////////////////////////////////////////// */
+/* ///////////////////////// Dark Mode ////////////////// */
+/* ///////////////////////////////////////////////////////// */
+
+.text-color-white {
+    color: white;
+}
+
+.very-dark-grey-background {
+    background-color: #20212C;
+}
+
+.dark-grey-background {
+    background-color: #2B2C37;
+}
+
+.add-new-column-btn-dark-mode {
+    background: linear-gradient(180deg, rgba(43, 44, 55, 0.25) 0%, rgba(43, 44, 55, 0.13) 100%);
+}
+
+.white-background-hover:hover {
+    color: #635FC7;
+    background-color: white;
+}
+
+/* ////////////////////////////////////////////////////////// */
 /* ///////////////////////// Media Queries ////////////////// */
 /* ///////////////////////////////////////////////////////// */
 
@@ -921,13 +986,6 @@ button {
     .add-task-btn-large-text {
         display: inline-block;
     }
-
-
-    
-
-
-
-
 
    .header-container {
         border-bottom: 1px solid #E4EBFA;
@@ -960,6 +1018,21 @@ button {
         cursor: initial;
     }
 
+    .delete-edit-btns-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .delete-btn {
+        width: 100%;
+    }
+
+    .cancel-btn {
+        width: 100%;
+    }
+
     .large-logo-container {
         height: 64px;
         width: 260px;
@@ -975,9 +1048,6 @@ button {
     .large-screen-logo {
         width: 152.528px;
         height: 25.224px;
-        /* margin-left: 20px;
-        margin-top: 20px;
-        margin-bottom: 30px; */
         display: inline-block;
     }
 
@@ -1007,7 +1077,7 @@ button {
         border-right: 1px solid #F4F7FD;
         width: 260px;
         top: 0px;
-        border-radius: 8px;
+        border-radius: 0px;
         left: 0px;
         height: 100%;
         display: flex;
@@ -1023,7 +1093,6 @@ button {
         display: none;
     }
     
-    
     .menu-modal-options-container {
         padding-right: 20px;
     }
@@ -1038,71 +1107,6 @@ button {
         align-items: center;
         font-size: 15px;
         color: #828FA3
-    }
-    
-    .menu-modal-option:hover {
-        cursor: pointer;
-        background-color: #635FC7;
-        color: white;
-    }
-    
-    .menu-modal-create-board {
-        width: 240px;
-        height: 48px;
-        border-top-right-radius: 20px;
-        border-bottom-right-radius: 20px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        font-size: 15px;
-        color: #635FC7
-    }
-    
-    .menu-modal-create-board svg {
-        margin-left: 20px;
-        margin-right: 10px;
-    }
-    
-    .menu-modal-create-board:hover {
-        cursor: pointer;
-    }
-    
-    .menu-modal-option svg {
-        margin-left: 20px;
-        margin-right: 10px;
-    }
-    
-    .menu-modal-options-header {
-        font-size: 12px;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-        letter-spacing: 2.4px;
-        color: #828FA3;
-        width: 240px;
-        display: flex;
-        justify-content: flex-start;
-        align-items: center;
-        height: 45px;
-        margin-left: 20px;
-        text-transform: uppercase;
-    }
-    
-    .dark-light-toggle-container {
-        width: 235px;
-        height: 48px;
-        background-color: #F4F7FD;
-        margin: 0 auto;
-        margin-bottom: 15px;
-        margin-top: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .dark-light-toggle-svg {
-        height: 20px;
-        width: 20px;
     }
 
 }

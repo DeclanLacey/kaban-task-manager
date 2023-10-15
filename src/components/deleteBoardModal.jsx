@@ -1,10 +1,13 @@
-import React from "react";
+import React, {useContext} from "react";
 import * as scroll from "./enableDisableScroll"
+import { TaskDataContext } from "./taskDataContext";
 
 function DeleteBoardModal(props) {
 
     scroll.disableScroll()
     const boardName = props.currentBoard
+    const { dark} = useContext(TaskDataContext)
+    const [darkMode, setDarkMode] = dark
 
     function closeDeleteBoard() {
         props.setDeleteBoardOpen(false)
@@ -13,6 +16,9 @@ function DeleteBoardModal(props) {
 
     function handleDeleteBtnClick() {
         const currentData = props.taskData
+
+        //// Checking if there are any boards left other than the selected one, if not
+        //// It will not let you delete the board
         if (currentData.boards.length === 1) {
             alert(`Must have at least one board`)
         }else {
@@ -41,20 +47,20 @@ function DeleteBoardModal(props) {
                 props.setCurrentBoard(currentData.boards[nextCurrentBoardIndex].name)
             
             }
-    
             closeDeleteBoard()
         }
-
     }
 
     return (
         <div className="delete-board-modal">
             <div className="modal-page-cover"> </div>
-            <div className="modal-content delete-modal-content">
+            <div className={darkMode ? "modal-content delete-modal-content dark-grey-background" : "modal-content delete-modal-content"}>
                 <h1 className="delete-title"> Delete this board?</h1>
                 <p className="delete-text"> Are you sure you want to delete the ‘{boardName}’ board? This action will remove all columns and tasks and cannot be reversed. </p>
-                <button className="delete-btn" onClick={handleDeleteBtnClick}> Delete </button>
-                <button className="cancel-btn" onClick={closeDeleteBoard}> Cancel </button>
+                <div className="delete-edit-btns-container">
+                    <button className="delete-btn" onClick={handleDeleteBtnClick}> Delete </button>
+                    <button className="cancel-btn" onClick={closeDeleteBoard}> Cancel </button>
+                </div>
             </div>
         </div>
     )

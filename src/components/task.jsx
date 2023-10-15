@@ -1,7 +1,10 @@
-import React from "react";
+import React, {useContext} from "react";
+import { TaskDataContext } from "./taskDataContext";
 
 function Task(props) {
 
+    const {dark} = useContext(TaskDataContext)
+    const [darkMode, setDarkMode] = dark
     const taskData = props.taskData
     const subtasks = props.taskData.subtasks
     const subtaskCount = subtasks.length
@@ -21,12 +24,10 @@ function Task(props) {
         props.setCurrentColumnData(props.columnData)
     }
 
-
     calculateCompletedSubtaskCount()
-
     return (
         <div onClick={openViewTaskModal}>
-            <div className="task-container" >
+            <div className={darkMode ? "task-container dark-grey-background" : "task-container"} >
                 <h1 className="task-title"> {taskData.title} </h1>            
                 <p className="task-subtask-title"> {`${completedSubtaskCount} of ${subtaskCount} subtasks`} </p>
             </div>

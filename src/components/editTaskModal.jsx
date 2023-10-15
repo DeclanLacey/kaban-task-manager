@@ -1,21 +1,17 @@
 import React, {useState} from "react";
 import * as scroll from "./enableDisableScroll"
+import { TaskDataContext } from "./taskDataContext";
 
-let subtaskNames = {
-
-}
 let selectedTaskData
 let initalSelectedTaskData
-
-//////////////////////////////////////////////
-/////// Need to figure out how to stop it from filling in every empty subtask becasuse the name is the "same"
-//////////////////////////////////////////////
 
 function EditTaskModal(props) {
     
     scroll.disableScroll()
     let currentData = props.currentBoardData
     const [subtaskCount, setSubtaskCount] = useState()
+    const {dark} = React.useContext(TaskDataContext)
+    const [darkMode, setDarkMode] = dark
     
     if (selectedTaskData === undefined) {
         selectedTaskData = props.editTaskSelectedTaskData
@@ -61,12 +57,11 @@ function EditTaskModal(props) {
         for (let i = 0; i < selectedTaskData.subtasks.length; i++) {
             subtaskElements.push(
                 <div className="input-with-x-container" key={i}> 
-                    <input required className="subtask-input" onChange={handleSubtaskChange} type="text" name={`subtask${i}`} value={selectedTaskData.subtasks[i].title} placeholder="e.g. Make coffee"/>
+                    <input required className={darkMode ? "subtask-input dark-grey-background text-color-white" : "subtask-input"} onChange={handleSubtaskChange} type="text" name={`subtask${i}`} value={selectedTaskData.subtasks[i].title} placeholder="e.g. Make coffee"/>
                     <img className="subtask-delete-btn-img" src="src\assets\icon-cross.svg" onClick={removeSubtaskInput}/>
                 </div>
             )
         }
-      
         return subtaskElements
     }
 
@@ -116,12 +111,14 @@ function EditTaskModal(props) {
     function handleEditTaskSubmit(event) {
         event.preventDefault()
 
+        //// Pushing all task names in the board into an array for further use
         let taskNames = []
         for (let i = 0; i < props.allTasks.length; i++) {
             taskNames.push(props.allTasks[i].title)
         }
 
-        if (taskNames.includes(selectedTaskData.title) === true) {
+        //// Checking if there is already a task by the same name
+        if (taskNames.includes(selectedTaskData.title) === true && selectedTaskData.title !== initalSelectedTaskData.title) {
             alert(`${selectedTaskData.title} is already a task, please select a different name.`)
         }else {
             props.setTaskData(prevState => {
@@ -177,7 +174,6 @@ function EditTaskModal(props) {
                     })
                 }
             })
-    
             selectedTaskData = undefined
             props.setEditTaskOpen(false)
             scroll.enableScroll()
@@ -187,16 +183,16 @@ function EditTaskModal(props) {
     return (
         <div className="add-task-modal">
             <div className="modal-page-cover"> </div>
-            <div className="modal-content">
+            <div className={darkMode ? "modal-content dark-grey-background text-color-white" : "modal-content"}>
                 <form onSubmit={handleEditTaskSubmit}> 
                     <h1 className="modal-title"> Edit Task</h1>
                     <div className="modal-input-container">
                         <label className="modal-label"> Title </label>
-                        <input className="text-box-normal" type="text" onChange={handleTitleChange} value={selectedTaskData.title} placeholder="e.g. Take coffee break" />
+                        <input className={darkMode ? "text-box-normal dark-grey-background text-color-white" : "text-box-normal"} type="text" onChange={handleTitleChange} value={selectedTaskData.title} placeholder="e.g. Take coffee break" />
                     </div>
                     <div className="modal-input-container">
                         <label className="modal-label"> Description </label>
-                        <textarea className="text-box-large desc-box" type="text" value={selectedTaskData.description} onChange={handleDescriptionChange} placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little."/>
+                        <textarea className={darkMode ? "text-box-large desc-box dark-grey-background text-color-white" : "text-box-large desc-box"} type="text" value={selectedTaskData.description} onChange={handleDescriptionChange} placeholder="e.g. It’s always good to take a break. This 15 minute break will  recharge the batteries a little."/>
                     </div>
 
                     <div className="modal-input-container">
@@ -204,12 +200,12 @@ function EditTaskModal(props) {
                         <div>
                             {renderSubtasks()}
                         </div>
-                        <button className="modal-add-new-btn" onClick={addNewSubtask}> +Add New Subtask </button>
+                        <button className={darkMode ? "modal-add-new-btn white-background-hover" : "modal-add-new-btn"} onClick={addNewSubtask}> +Add New Subtask </button>
                     </div>
 
                     <div className="modal-input-container">
                         <label className="modal-label"> Status </label>
-                        <select onChange={handleTaskStatusChange} className="select-menu"> 
+                        <select onChange={handleTaskStatusChange} className={darkMode ? "select-menu dark-grey-background text-color-white" : "select-menu"}> 
                             {renderColumnOptions()}
                         </select>
                     </div>

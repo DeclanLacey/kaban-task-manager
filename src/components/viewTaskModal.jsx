@@ -7,10 +7,15 @@ let selectedTaskData
 
 function ViewTaskModal(props) {
 
+    useEffect(() => {
+        props.setMenuOpen(false)
+    }, [])
+
     scroll.disableScroll()
     let currentColumnDataCopy = props.currentColumnData
-    const {data, board} = useContext(TaskDataContext)
+    const {data, dark} = useContext(TaskDataContext)
     const [taskData, setTaskData] = data
+    const [darkMode, setDarkMode] = dark
 
     if (selectedTaskData === undefined) {
         selectedTaskData = props.currentTaskData
@@ -154,10 +159,10 @@ function ViewTaskModal(props) {
     function renderSubtasks() {
         for(let i = 0; i < subtaskCount; i++) {
             subtaskElements.push(
-                <div className="subtask" key={i}> 
+                <label className={darkMode ? "subtask very-dark-grey-background" : "subtask"} key={i} > 
                     <input className="subtask-checkbox" type="checkbox" onChange={changeIsCompletedStatus} checked={selectedTaskData.subtasks[i].isCompleted}/>
-                    <label className="subtask-label">{subtasks[i].title}</label>
-                </div>
+                    <p className="subtask-label" >{subtasks[i].title}</p>
+                </label>
             )
         }
     }
@@ -170,7 +175,7 @@ function ViewTaskModal(props) {
         }
 
         return (
-            <select value={selectedTaskData.status} onChange={handleChangeStatus} className="current-status-select select-menu">
+            <select value={selectedTaskData.status} onChange={handleChangeStatus} className={darkMode ? "current-status-select select-menu dark-grey-background text-color-white" : "current-status-select select-menu"}>
                 {dropdownSelections}
             </select>
         )
@@ -196,7 +201,7 @@ function ViewTaskModal(props) {
     return (
         <div className="view-task-modal">
             <div className="modal-page-cover" onClick={closeViewTaskModal}> </div>
-            <div className="modal-content" >
+            <div  className={darkMode ? "modal-content dark-grey-background text-color-white" : "modal-content"} >
                     {
                         props.editDeleteTaskOpen ?
                             <EditDeleteTaskModal 
@@ -223,7 +228,6 @@ function ViewTaskModal(props) {
                     <label className="current-status-label"> Current Status </label> 
                     {renderStatusDropdown()}
                 </div>
-                
             </div>
         </div>
     )
