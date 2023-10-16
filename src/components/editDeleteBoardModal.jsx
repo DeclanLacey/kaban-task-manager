@@ -1,5 +1,4 @@
 import React, {useContext} from "react";
-import * as scroll from "./enableDisableScroll"
 import { TaskDataContext } from "./taskDataContext";
 
 function EditDeleteBoardModal(props) {

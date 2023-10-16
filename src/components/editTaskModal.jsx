@@ -59,7 +59,7 @@ function EditTaskModal(props) {
             subtaskElements.push(
                 <div className="input-with-x-container" key={i}> 
                     <input required className={darkMode ? "subtask-input dark-grey-background text-color-white" : "subtask-input"} onChange={handleSubtaskChange} type="text" name={`subtask${i}`} value={selectedTaskData.subtasks[i].title} placeholder="e.g. Make coffee"/>
-                    <img className="subtask-delete-btn-img" src={deleteIcon} onClick={removeSubtaskInput}/>
+                    <img alt="x icon allowing deletion of input box" className="subtask-delete-btn-img" src={deleteIcon} onClick={removeSubtaskInput}/>
                 </div>
             )
         }

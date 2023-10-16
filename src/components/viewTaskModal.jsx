@@ -219,7 +219,7 @@ function ViewTaskModal(props) {
                     }
                 <div className="task-title-container">
                     <h1 className="view-task-title"> {selectedTaskData.title} </h1>
-                    <img className="view-task-three-dots-svg" onClick={changeEditDeleteTaskModalStatus} src={threeDots} />
+                    <img alt="vertical elipses indicating a menu that can be opened" className="view-task-three-dots-svg" onClick={changeEditDeleteTaskModalStatus} src={threeDots} />
                 </div>
                 <p className="task-description"> {selectedTaskData.description}</p>
                 <p className="subtask-title"> Subtasks ({completetdSubtaskCount} of {subtaskCount}) </p>

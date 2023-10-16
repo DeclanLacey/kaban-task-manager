@@ -161,21 +161,21 @@ function App() {
                     <div className="large-logo-container" style={darkMode ? {borderRight: "1px solid #3E3F4E", marginLeft: "-14px"} : {}}>
                         {
                             darkMode ?
-                                <img className="large-screen-logo" src={largeLogoLight} />
+                                <img alt="website logo that says Kanban" className="large-screen-logo" src={largeLogoLight} />
                             :
-                                <img className="large-screen-logo" src={largeLogoDark}/>
+                                <img alt="website logo that says Kanban" className="large-screen-logo" src={largeLogoDark}/>
                         }
                     </div>
                     <div className="header-inner-container flex-left">
-                        <img className="mobile-svg-logo" src={mobileLogo} />
+                        <img alt="website logo without text" className="mobile-svg-logo" src={mobileLogo} />
                         <div className="dropdown-menu" onClick={changeMenuStatus}>
                             <div className="dropdown-menu-inner-container-top">
                             <h1 className="dropdown-menu-text"> {currentBoard} </h1>
                             {
                                 menuOpen ?
-                                    <img className="dropdown-menu-arrow" src={chevronUp} />
+                                    <img alt="chevron arrow for menu pointing down" className="dropdown-menu-arrow" src={chevronUp} />
                                 :
-                                    <img className="dropdown-menu-arrow" src={chevronDown} />
+                                    <img alt="chevron arrow for menu pointing up" className="dropdown-menu-arrow" src={chevronDown} />
                             }
                             </div>
                             
@@ -188,7 +188,7 @@ function App() {
                             :
                                 <button className="add-task-btn" onClick={changeAddTaskOpenStatus}> <span className="add-task-btn-small-text"> + </span> <span className="add-task-btn-large-text"> + Add New Task </span> </button>
                         }
-                        <img onClick={changeEditDeleteBoardOpenStatus} className="three-dot-menu-header" src={threeDots}/>
+                        <img onClick={changeEditDeleteBoardOpenStatus} alt="vertical elipises indicating a menu" className="three-dot-menu-header" src={threeDots}/>
                     </div>
                 </header>
 
