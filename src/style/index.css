@@ -537,7 +537,7 @@ button {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background-image: url("src/assets/icon-chevron-down.svg");
+    background-image: url('data:image/svg+xml,<svg width="10" height="7" xmlns="http://www.w3.org/2000/svg"><path stroke="%23635FC7" stroke-width="2" fill="none" d="m1 1 4 4 4-4"/></svg>');
     background-repeat: no-repeat;
     background-position:  96%;
 }

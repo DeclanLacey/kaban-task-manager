@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import * as scroll from "./enableDisableScroll"
 import { TaskDataContext } from "./taskDataContext";
+import deleteIcon from "../assets/icon-cross.svg"
 
 let selectedTaskData
 let initalSelectedTaskData
@@ -58,7 +59,7 @@ function EditTaskModal(props) {
             subtaskElements.push(
                 <div className="input-with-x-container" key={i}> 
                     <input required className={darkMode ? "subtask-input dark-grey-background text-color-white" : "subtask-input"} onChange={handleSubtaskChange} type="text" name={`subtask${i}`} value={selectedTaskData.subtasks[i].title} placeholder="e.g. Make coffee"/>
-                    <img className="subtask-delete-btn-img" src="src\assets\icon-cross.svg" onClick={removeSubtaskInput}/>
+                    <img className="subtask-delete-btn-img" src={deleteIcon} onClick={removeSubtaskInput}/>
                 </div>
             )
         }

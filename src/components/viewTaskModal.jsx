@@ -2,6 +2,8 @@ import React, {useContext, useEffect, useState} from "react";
 import EditDeleteTaskModal from "./editDeleteTaskModal";
 import { TaskDataContext } from "./taskDataContext";
 import * as scroll from "./enableDisableScroll"
+import threeDots from "../assets/icon-vertical-ellipsis.svg"
+
 
 let selectedTaskData
 
@@ -217,7 +219,7 @@ function ViewTaskModal(props) {
                     }
                 <div className="task-title-container">
                     <h1 className="view-task-title"> {selectedTaskData.title} </h1>
-                    <img className="view-task-three-dots-svg" onClick={changeEditDeleteTaskModalStatus} src="src\assets\icon-vertical-ellipsis.svg" />
+                    <img className="view-task-three-dots-svg" onClick={changeEditDeleteTaskModalStatus} src={threeDots} />
                 </div>
                 <p className="task-description"> {selectedTaskData.description}</p>
                 <p className="subtask-title"> Subtasks ({completetdSubtaskCount} of {subtaskCount}) </p>

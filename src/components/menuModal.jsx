@@ -1,6 +1,8 @@
 import React from "react";
 import { TaskDataContext } from "./taskDataContext";
 import * as scroll from "./enableDisableScroll"
+import lightTheme from "../assets/icon-light-theme.svg"
+import darkTheme from "../assets/icon-dark-theme.svg"
 
 function MenuModal(props) { 
    
@@ -60,12 +62,12 @@ function MenuModal(props) {
                     </h2>
                 </div>
                 <div className={darkMode ? "dark-light-toggle-container very-dark-grey-background" : "dark-light-toggle-container"}>
-                    <img className="dark-light-toggle-svg" src="src\assets\icon-light-theme.svg"/>
+                    <img className="dark-light-toggle-svg" src={lightTheme}/>
                     <label className="switch">
                         <input onChange={() => setDarkMode(prevState => !prevState)} checked={darkMode} type="checkbox" />
                         <span className="slider round"></span>
                     </label>
-                    <img className="dark-light-toggle-svg" src="src\assets\icon-dark-theme.svg"/>
+                    <img className="dark-light-toggle-svg" src={darkTheme}/>
                 </div>
                 <button className={darkMode ? "hide-sidebar-btn dark-grey-background white-background-hover" : "hide-sidebar-btn"} onClick={closeMenu}>
                     <svg width="18" height="16" xmlns="http://www.w3.org/2000/svg" fill="currentColor"> 

@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { TaskDataContext } from "./taskDataContext";
 import * as scroll from "./enableDisableScroll"
+import deleteIcon from "../assets/icon-cross.svg"
 
 let count = 0
 const columnElements = []
@@ -25,7 +26,7 @@ function AddBoardModal(props) {
             columnElements.push(
             <div className="input-with-x-container" key={index}> 
                 <input required className={darkMode ? "subtask-input dark-grey-background text-color-white" : "subtask-input"} type="text" onChange={handleColumnChange} name={`boardColumn${index}`}/>
-                <img className="subtask-delete-btn-img"  src="src\assets\icon-cross.svg" onClick={removeColumnInput}/>
+                <img className="subtask-delete-btn-img"  src={deleteIcon} onClick={removeColumnInput}/>
             </div>
             )
     }
