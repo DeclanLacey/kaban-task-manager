@@ -775,8 +775,9 @@ button {
 }
 
 .view-task-three-dots-svg {
-    width: 4.615px;
-    height: 20px;
+    height: 40px;
+    width: 18px;
+    padding: 11px 7px 11px 7px;
 }
 
 .view-task-three-dots-svg:hover {
@@ -795,7 +796,6 @@ button {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    margin-left: 10px;
 }
 
 .task-description {
@@ -973,10 +973,11 @@ button {
 @media (min-width: 750px) {
     .add-task-btn {
         border-radius: 50px;
-        width: 164px;
-        height: 38px;
         font-size: 15px;
         padding-top: 5px;
+        width: 164px;
+        height: 48px;
+        margin-right: 12px;
     }
 
     .add-task-btn-small-text  {
@@ -987,12 +988,30 @@ button {
         display: inline-block;
     }
 
+    .task-columns-container {
+        padding-top: 120px;
+        padding-left: 25px;
+    }
+
+    .dropdown-menu-text {
+        font-size: 24px;
+        margin-left: 25px;
+    }
+
    .header-container {
         border-bottom: 1px solid #E4EBFA;
+        height: 96px;
    }
 
     .header-inner-container {
         flex-grow: 1;
+    }
+
+    .three-dot-menu-header {
+        margin-right: 10px;
+        height: 40px;
+        width: 30px;
+        padding: 8px 12px 8px 12px
     }
 
     .flex-left {
@@ -1025,6 +1044,10 @@ button {
         gap: 15px;
     }
 
+    .edit-delete-board-modal {
+        top: 80px;
+    }
+
     .delete-btn {
         width: 100%;
     }
@@ -1034,7 +1057,7 @@ button {
     }
 
     .large-logo-container {
-        height: 64px;
+        height: 96px;
         width: 260px;
         margin-top: -13px;
         margin-left: -13px;
@@ -1083,7 +1106,7 @@ button {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding-top: 70px;
+        padding-top: 96px;
         border-right: 1px solid #E4EBFA;
         padding-bottom: 70px;
         position: fixed;
